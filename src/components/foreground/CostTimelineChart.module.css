@@ -1,0 +1,62 @@
+/**
+ * CostTimelineChart styles.
+ */
+
+.container {
+  max-width: 700px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  height: 200px;
+  padding: 1rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.barGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 80px;
+  height: 100%;
+  position: relative;
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(to top, #4a9a47, #6bc568);
+  border-radius: 4px 4px 0 0;
+  margin-top: auto;
+  transition: height 0.1s linear;
+  min-height: 4px;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cost {
+  font-size: 0.65rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
