@@ -1,0 +1,24 @@
+/**
+ * FooterThankYou styles.
+ */
+
+.container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 200;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 1rem 0 0;
+  font-weight: 300;
+}
