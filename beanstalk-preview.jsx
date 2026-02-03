@@ -119,92 +119,145 @@ const PastoralBackground = ({ scrollProgress }) => {
   );
 };
 
-// Beanstalk Progress Component
+// Beanstalk Progress Component - Bigger and thicker
 const BeanstalkProgress = ({ scrollProgress, visible }) => {
   if (!visible) return null;
-  
+
   const growthProgress = Math.min((scrollProgress - 0.25) / 0.75, 1);
-  
+
   return (
-    <div className="fixed left-0 top-0 w-24 h-screen z-20 pointer-events-none">
-      <svg className="w-full h-full" viewBox="0 0 100 800" preserveAspectRatio="xMidYMax slice">
+    <div className="fixed left-0 top-0 w-44 h-screen z-20 pointer-events-none">
+      <svg className="w-full h-full" viewBox="0 0 150 800" preserveAspectRatio="xMidYMax slice">
         <defs>
           <linearGradient id="stalkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(120, 50%, 25%)" />
-            <stop offset="50%" stopColor="hsl(120, 55%, 35%)" />
-            <stop offset="100%" stopColor="hsl(120, 50%, 28%)" />
+            <stop offset="0%" stopColor="hsl(120, 50%, 22%)" />
+            <stop offset="30%" stopColor="hsl(120, 55%, 32%)" />
+            <stop offset="70%" stopColor="hsl(120, 55%, 35%)" />
+            <stop offset="100%" stopColor="hsl(120, 50%, 25%)" />
+          </linearGradient>
+          <linearGradient id="stalkGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(120, 45%, 28%)" />
+            <stop offset="50%" stopColor="hsl(120, 50%, 35%)" />
+            <stop offset="100%" stopColor="hsl(120, 45%, 30%)" />
           </linearGradient>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          <filter id="stalkShadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="hsl(120, 30%, 15%)" floodOpacity="0.3"/>
+          </filter>
         </defs>
-        
-        {/* Main stalk - grows from bottom */}
+
+        {/* Main stalk - grows from bottom, much thicker */}
         <path
-          d={`M50 800 Q40 ${800 - growthProgress * 300} 55 ${800 - growthProgress * 400} Q45 ${800 - growthProgress * 550} 50 ${800 - growthProgress * 700}`}
+          d={`M75 800 Q55 ${800 - growthProgress * 300} 85 ${800 - growthProgress * 400} Q60 ${800 - growthProgress * 550} 75 ${800 - growthProgress * 700}`}
           stroke="url(#stalkGrad)"
-          strokeWidth="20"
+          strokeWidth="45"
           fill="none"
           strokeLinecap="round"
+          filter="url(#stalkShadow)"
           style={{
             strokeDasharray: 1000,
             strokeDashoffset: 1000 - (growthProgress * 1000),
             transition: 'stroke-dashoffset 0.1s ease-out'
           }}
         />
-        
-        {/* Secondary vine */}
+
+        {/* Secondary vine - thicker */}
         <path
-          d={`M55 800 Q65 ${800 - growthProgress * 280} 48 ${800 - growthProgress * 380} Q58 ${800 - growthProgress * 520} 52 ${800 - growthProgress * 680}`}
-          stroke="hsl(120, 45%, 30%)"
-          strokeWidth="8"
+          d={`M85 800 Q105 ${800 - growthProgress * 280} 68 ${800 - growthProgress * 380} Q95 ${800 - growthProgress * 520} 78 ${800 - growthProgress * 680}`}
+          stroke="url(#stalkGrad2)"
+          strokeWidth="22"
           fill="none"
           strokeLinecap="round"
-          opacity={0.8}
+          opacity={0.9}
           style={{
             strokeDasharray: 800,
             strokeDashoffset: 800 - (growthProgress * 800),
             transition: 'stroke-dashoffset 0.15s ease-out'
           }}
         />
-        
-        {/* Leaves */}
+
+        {/* Tertiary vine - adds more presence */}
+        <path
+          d={`M70 800 Q50 ${800 - growthProgress * 250} 80 ${800 - growthProgress * 350} Q55 ${800 - growthProgress * 480} 72 ${800 - growthProgress * 620}`}
+          stroke="hsl(120, 40%, 28%)"
+          strokeWidth="14"
+          fill="none"
+          strokeLinecap="round"
+          opacity={0.7}
+          style={{
+            strokeDasharray: 700,
+            strokeDashoffset: 700 - (growthProgress * 700),
+            transition: 'stroke-dashoffset 0.18s ease-out'
+          }}
+        />
+
+        {/* Leaves - bigger */}
+        {growthProgress > 0.15 && (
+          <ellipse cx="115" cy={800 - growthProgress * 220} rx="35" ry="16" fill="hsl(120, 50%, 38%)"
+            style={{ opacity: Math.min((growthProgress - 0.15) * 3, 1), transform: 'rotate(-25deg)', transformOrigin: '115px ' + (800 - growthProgress * 220) + 'px' }} />
+        )}
         {growthProgress > 0.2 && (
-          <ellipse cx="70" cy={800 - growthProgress * 250} rx="20" ry="10" fill="hsl(120, 50%, 40%)" 
-            style={{ opacity: Math.min((growthProgress - 0.2) * 3, 1), transform: 'rotate(-20deg)', transformOrigin: '70px ' + (800 - growthProgress * 250) + 'px' }} />
+          <ellipse cx="120" cy={800 - growthProgress * 250} rx="32" ry="14" fill="hsl(120, 50%, 40%)"
+            style={{ opacity: Math.min((growthProgress - 0.2) * 3, 1), transform: 'rotate(-20deg)', transformOrigin: '120px ' + (800 - growthProgress * 250) + 'px' }} />
+        )}
+        {growthProgress > 0.35 && (
+          <ellipse cx="35" cy={800 - growthProgress * 350} rx="30" ry="13" fill="hsl(120, 55%, 36%)"
+            style={{ opacity: Math.min((growthProgress - 0.35) * 3, 1), transform: 'rotate(30deg)', transformOrigin: '35px ' + (800 - growthProgress * 350) + 'px' }} />
         )}
         {growthProgress > 0.4 && (
-          <ellipse cx="30" cy={800 - growthProgress * 400} rx="18" ry="9" fill="hsl(120, 55%, 38%)" 
+          <ellipse cx="30" cy={800 - growthProgress * 400} rx="28" ry="12" fill="hsl(120, 55%, 38%)"
             style={{ opacity: Math.min((growthProgress - 0.4) * 3, 1), transform: 'rotate(25deg)', transformOrigin: '30px ' + (800 - growthProgress * 400) + 'px' }} />
         )}
-        {growthProgress > 0.6 && (
-          <ellipse cx="65" cy={800 - growthProgress * 520} rx="16" ry="8" fill="hsl(120, 50%, 42%)" 
-            style={{ opacity: Math.min((growthProgress - 0.6) * 3, 1), transform: 'rotate(-15deg)', transformOrigin: '65px ' + (800 - growthProgress * 520) + 'px' }} />
-        )}
-        {growthProgress > 0.8 && (
-          <ellipse cx="35" cy={800 - growthProgress * 650} rx="14" ry="7" fill="hsl(120, 52%, 45%)" 
-            style={{ opacity: Math.min((growthProgress - 0.8) * 3, 1), transform: 'rotate(20deg)', transformOrigin: '35px ' + (800 - growthProgress * 650) + 'px' }} />
-        )}
-        
-        {/* Magic beans (golden) */}
-        {growthProgress > 0.3 && (
-          <ellipse cx="58" cy={800 - growthProgress * 320} rx="8" ry="5" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.3) * 4, 1) }} />
-        )}
         {growthProgress > 0.55 && (
-          <ellipse cx="42" cy={800 - growthProgress * 480} rx="7" ry="4" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.55) * 4, 1) }} />
+          <ellipse cx="110" cy={800 - growthProgress * 480} rx="26" ry="11" fill="hsl(120, 50%, 40%)"
+            style={{ opacity: Math.min((growthProgress - 0.55) * 3, 1), transform: 'rotate(-18deg)', transformOrigin: '110px ' + (800 - growthProgress * 480) + 'px' }} />
+        )}
+        {growthProgress > 0.6 && (
+          <ellipse cx="115" cy={800 - growthProgress * 520} rx="24" ry="10" fill="hsl(120, 50%, 42%)"
+            style={{ opacity: Math.min((growthProgress - 0.6) * 3, 1), transform: 'rotate(-15deg)', transformOrigin: '115px ' + (800 - growthProgress * 520) + 'px' }} />
         )}
         {growthProgress > 0.75 && (
-          <ellipse cx="55" cy={800 - growthProgress * 600} rx="6" ry="4" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+          <ellipse cx="40" cy={800 - growthProgress * 600} rx="22" ry="9" fill="hsl(120, 52%, 42%)"
+            style={{ opacity: Math.min((growthProgress - 0.75) * 3, 1), transform: 'rotate(22deg)', transformOrigin: '40px ' + (800 - growthProgress * 600) + 'px' }} />
+        )}
+        {growthProgress > 0.8 && (
+          <ellipse cx="45" cy={800 - growthProgress * 650} rx="20" ry="8" fill="hsl(120, 52%, 45%)"
+            style={{ opacity: Math.min((growthProgress - 0.8) * 3, 1), transform: 'rotate(20deg)', transformOrigin: '45px ' + (800 - growthProgress * 650) + 'px' }} />
+        )}
+
+        {/* Magic beans (golden) - bigger */}
+        {growthProgress > 0.25 && (
+          <ellipse cx="90" cy={800 - growthProgress * 280} rx="12" ry="7" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+            style={{ opacity: Math.min((growthProgress - 0.25) * 4, 1) }} />
+        )}
+        {growthProgress > 0.3 && (
+          <ellipse cx="88" cy={800 - growthProgress * 320} rx="11" ry="7" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+            style={{ opacity: Math.min((growthProgress - 0.3) * 4, 1) }} />
+        )}
+        {growthProgress > 0.5 && (
+          <ellipse cx="62" cy={800 - growthProgress * 440} rx="10" ry="6" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+            style={{ opacity: Math.min((growthProgress - 0.5) * 4, 1) }} />
+        )}
+        {growthProgress > 0.55 && (
+          <ellipse cx="58" cy={800 - growthProgress * 480} rx="10" ry="6" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+            style={{ opacity: Math.min((growthProgress - 0.55) * 4, 1) }} />
+        )}
+        {growthProgress > 0.7 && (
+          <ellipse cx="82" cy={800 - growthProgress * 560} rx="9" ry="5" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
+            style={{ opacity: Math.min((growthProgress - 0.7) * 4, 1) }} />
+        )}
+        {growthProgress > 0.75 && (
+          <ellipse cx="80" cy={800 - growthProgress * 600} rx="9" ry="5" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
             style={{ opacity: Math.min((growthProgress - 0.75) * 4, 1) }} />
         )}
       </svg>
-      
+
       {/* Progress indicator */}
       <div className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-green-700 bg-white/80 px-2 py-1 rounded">
         {Math.round(scrollProgress * 100)}%
@@ -217,43 +270,51 @@ const BeanstalkProgress = ({ scrollProgress, visible }) => {
 const QuoteCard = ({ text, variant = 'storybook' }) => {
   if (variant === 'storybook') {
     return (
-      <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-lg p-8 shadow-lg max-w-xl mx-auto">
-        <div className="absolute -top-3 -left-3 text-5xl text-amber-300">"</div>
-        <div className="absolute -bottom-3 -right-3 text-5xl text-amber-300">"</div>
-        <p className="font-serif text-2xl md:text-3xl italic text-amber-900 text-center leading-relaxed">
+      <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-12 shadow-lg max-w-2xl mx-auto">
+        <div className="text-6xl text-amber-300 leading-none mb-2">"</div>
+        <p className="font-serif text-3xl md:text-4xl italic text-amber-900 text-center leading-relaxed px-4">
           {text}
         </p>
+        <div className="text-6xl text-amber-300 leading-none mt-2 text-right">"</div>
       </div>
     );
   }
-  
+
+  // Blueprint/patent filing style with organic colors
   return (
-    <div className="relative bg-slate-900 border border-cyan-500/30 rounded-lg p-8 shadow-lg max-w-xl mx-auto overflow-hidden">
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: 'linear-gradient(rgba(6,182,212,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.3) 1px, transparent 1px)',
-        backgroundSize: '20px 20px'
+    <div className="relative bg-stone-50 border-2 border-emerald-800/30 rounded-xl p-12 shadow-lg max-w-2xl mx-auto overflow-hidden">
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
       }} />
-      <div className="absolute top-2 left-2 text-cyan-500 font-mono text-xs">[</div>
-      <div className="absolute bottom-2 right-2 text-cyan-500 font-mono text-xs">]</div>
-      <p className="font-mono text-lg text-cyan-100 text-center relative z-10">
-        {text}
-      </p>
+      <div className="relative z-10">
+        <div className="text-5xl text-emerald-700/40 font-serif leading-none mb-2">"</div>
+        <p className="font-mono text-lg md:text-xl text-emerald-900 text-center px-4">
+          {text}
+        </p>
+        <div className="text-5xl text-emerald-700/40 font-serif leading-none mt-2 text-right">"</div>
+      </div>
     </div>
   );
 };
 
 // Year Marker Component
 const YearMarker = ({ year }) => (
-  <div className="flex justify-center py-16">
-    <div className="inline-block bg-gradient-to-r from-slate-800 to-slate-900 px-12 py-6 rounded-lg shadow-xl">
-      <span className="font-mono text-5xl md:text-7xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-        {year}
-      </span>
-    </div>
+  <div className="min-h-screen flex items-center justify-center">
+    <span
+      className="font-serif font-bold text-emerald-800/20"
+      style={{
+        fontSize: 'clamp(200px, 50vw, 500px)',
+        lineHeight: 1,
+        letterSpacing: '-0.02em'
+      }}
+    >
+      {year}
+    </span>
   </div>
 );
 
-// Cost Chart Component
+// Cost Chart Component - Blueprint/Patent Filing Style
 const CostChart = ({ visibleModels }) => {
   const models = [
     { name: 'GPT-1', cost: 5000, year: 2018 },
@@ -263,66 +324,71 @@ const CostChart = ({ visibleModels }) => {
     { name: 'GPT-4', cost: 100000000, year: 2023 },
     { name: 'GPT-5', cost: 500000000, year: 2024 },
   ];
-  
+
   const maxCost = 500000000;
-  
+  const barColors = ['#2d5a27', '#3d7a37', '#4a8f47', '#7a9a32', '#9a8a32', '#8a6a32'];
+
   const formatCost = (cost) => {
     if (cost >= 1000000) return `$${(cost / 1000000).toFixed(0)}M`;
     if (cost >= 1000) return `$${(cost / 1000).toFixed(0)}K`;
     return `$${cost}`;
   };
-  
+
   return (
-    <div className="bg-slate-900 rounded-lg p-6 shadow-xl max-w-2xl mx-auto">
-      <div className="absolute inset-0 opacity-5 rounded-lg" style={{
-        backgroundImage: 'linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)',
-        backgroundSize: '30px 30px'
+    <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-8 shadow-lg max-w-2xl mx-auto overflow-hidden">
+      {/* Blueprint grid */}
+      <div className="absolute inset-0 opacity-30" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
       }} />
-      <h3 className="font-mono text-cyan-400 text-sm uppercase tracking-wider mb-6">Training Cost Progression</h3>
-      <div className="space-y-4">
-        {models.slice(0, visibleModels).map((model, index) => {
-          const logWidth = (Math.log10(model.cost) / Math.log10(maxCost)) * 100;
-          return (
-            <div key={model.name} className="relative">
-              <div className="flex justify-between mb-1">
-                <span className="font-mono text-slate-300 text-sm">{model.name}</span>
-                <span className="font-mono text-cyan-400 text-sm">{formatCost(model.cost)}</span>
+      <div className="relative z-10">
+        <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-6">Training Cost Progression</h3>
+        <div className="space-y-4">
+          {models.slice(0, visibleModels).map((model, index) => {
+            const logWidth = (Math.log10(model.cost) / Math.log10(maxCost)) * 100;
+            return (
+              <div key={model.name} className="relative">
+                <div className="flex justify-between mb-1">
+                  <span className="font-mono text-emerald-900 text-sm">{model.name}</span>
+                  <span className="font-mono text-emerald-700 text-sm font-semibold">{formatCost(model.cost)}</span>
+                </div>
+                <div className="h-6 bg-stone-200 rounded overflow-hidden border border-emerald-800/20">
+                  <div
+                    className="h-full rounded transition-all duration-700 ease-out"
+                    style={{
+                      width: `${logWidth}%`,
+                      backgroundColor: barColors[index] || barColors[barColors.length - 1],
+                    }}
+                  />
+                </div>
               </div>
-              <div className="h-6 bg-slate-800 rounded overflow-hidden">
-                <div 
-                  className="h-full rounded transition-all duration-700 ease-out"
-                  style={{
-                    width: `${logWidth}%`,
-                    background: `linear-gradient(90deg, hsl(${120 + index * 20}, 70%, 40%), hsl(${140 + index * 20}, 60%, 50%))`,
-                  }}
-                />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <p className="font-mono text-emerald-700/60 text-xs mt-4 text-center">Log scale visualization</p>
       </div>
-      <p className="font-mono text-slate-500 text-xs mt-4 text-center">Log scale visualization</p>
     </div>
   );
 };
 
-// Definition Card
+// Definition Card - Blueprint/Patent Filing Style
 const DefinitionCard = ({ label, term, definition }) => (
-  <div className="bg-slate-900 border border-cyan-500/30 rounded-lg p-8 max-w-xl mx-auto relative overflow-hidden">
-    <div className="absolute inset-0 opacity-5" style={{
-      backgroundImage: 'linear-gradient(rgba(6,182,212,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.5) 1px, transparent 1px)',
-      backgroundSize: '20px 20px'
+  <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-10 max-w-2xl mx-auto overflow-hidden">
+    {/* Blueprint grid */}
+    <div className="absolute inset-0 opacity-20" style={{
+      backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+      backgroundSize: '24px 24px'
     }} />
     <div className="relative z-10">
-      <span className="font-mono text-cyan-500 text-xs uppercase tracking-wider">{label}</span>
-      <h3 className="font-serif text-2xl text-white mt-2 mb-4">{term}</h3>
-      <div className="w-16 h-0.5 bg-cyan-500 mb-4" />
-      <p className="text-slate-300 leading-relaxed">{definition}</p>
+      <span className="font-mono text-emerald-700 text-xs uppercase tracking-wider">{label}</span>
+      <h3 className="font-serif text-3xl text-emerald-900 mt-2 mb-4">{term}</h3>
+      <div className="w-16 h-0.5 bg-emerald-600 mb-4" />
+      <p className="text-emerald-800 leading-relaxed text-lg">{definition}</p>
     </div>
   </div>
 );
 
-// Scaling Table Component
+// Scaling Table Component - Blueprint/Patent Filing Style
 const ScalingTable = () => {
   const data = [
     { year: '2022', compute: '10K H100s', cost: '$500M', power: '10 MW', illustration: '10,000 homes' },
@@ -331,32 +397,39 @@ const ScalingTable = () => {
     { year: '2028', compute: '10M', cost: '$100B', power: '10 GW', illustration: 'Small US State' },
     { year: '2030', compute: '100M', cost: '$1T', power: '100 GW', illustration: '20% of US electricity' },
   ];
-  
+
   return (
-    <div className="bg-slate-900 rounded-lg p-6 shadow-xl max-w-4xl mx-auto overflow-x-auto">
-      <h3 className="font-mono text-cyan-400 text-sm uppercase tracking-wider mb-4">AI Infrastructure Scaling Roadmap</h3>
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-cyan-500/30">
-            <th className="text-left py-3 px-4 font-mono text-cyan-400">Year</th>
-            <th className="text-left py-3 px-4 font-mono text-cyan-400">Compute</th>
-            <th className="text-left py-3 px-4 font-mono text-cyan-400">Cost</th>
-            <th className="text-left py-3 px-4 font-mono text-cyan-400">Power</th>
-            <th className="text-left py-3 px-4 font-mono text-cyan-400">Scale</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, i) => (
-            <tr key={row.year} className="border-b border-slate-700/50 hover:bg-slate-800/50 transition-colors">
-              <td className="py-3 px-4 font-mono text-white">{row.year}</td>
-              <td className="py-3 px-4 font-mono text-slate-300">{row.compute}</td>
-              <td className="py-3 px-4 font-mono text-green-400">{row.cost}</td>
-              <td className="py-3 px-4 font-mono text-amber-400">{row.power}</td>
-              <td className="py-3 px-4 text-slate-400">{row.illustration}</td>
+    <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-8 shadow-lg max-w-4xl mx-auto overflow-x-auto">
+      {/* Blueprint grid */}
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }} />
+      <div className="relative z-10">
+        <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-4">AI Infrastructure Scaling Roadmap</h3>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-emerald-800/30">
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Year</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Compute</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Cost</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Power</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Scale</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((row, i) => (
+              <tr key={row.year} className="border-b border-emerald-800/10 hover:bg-emerald-50/50 transition-colors">
+                <td className="py-3 px-4 font-mono text-emerald-900 font-semibold">{row.year}</td>
+                <td className="py-3 px-4 font-mono text-emerald-800">{row.compute}</td>
+                <td className="py-3 px-4 font-mono text-emerald-700 font-semibold">{row.cost}</td>
+                <td className="py-3 px-4 font-mono text-amber-700">{row.power}</td>
+                <td className="py-3 px-4 text-emerald-700">{row.illustration}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -376,9 +449,9 @@ const BulletList = ({ items, title }) => (
   </div>
 );
 
-// Section Component
+// Section Component - Full viewport height for clean scroll transitions
 const Section = ({ children, className = '', align = 'left' }) => (
-  <section className={`min-h-screen flex flex-col justify-center py-20 px-8 ${align === 'center' ? '' : 'ml-28'} ${className}`}>
+  <section className={`min-h-screen flex flex-col justify-center py-32 px-8 ${align === 'center' ? '' : 'ml-32'} ${className}`}>
     <div className={`max-w-3xl ${align === 'center' ? 'mx-auto text-center' : ''}`}>
       {children}
     </div>
@@ -440,18 +513,10 @@ function BeansTalkPresentation() {
       
       {/* Content */}
       <div className="relative z-10">
-        
-        {/* Opening */}
-        <Section align="center">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-800 mb-6">
-            beans<span className="text-emerald-600">Talk</span>
-          </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            A scroll-driven journey through AI infrastructure, 
-            told through the lens of Jack and the Beanstalk.
-          </p>
-        </Section>
-        
+
+        {/* Opening - Just the pastoral scene with scroll indicator */}
+        <section className="min-h-screen" />
+
         {/* Jack's Story */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed mb-8">
@@ -692,11 +757,14 @@ function BeansTalkPresentation() {
         
         {/* Thank you */}
         <Section align="center">
-          <p className="font-serif text-2xl text-slate-600 italic">
-            Thank you for joining my beansTalk
+          <p className="font-serif text-2xl md:text-3xl text-slate-600 mb-4">
+            Thank you for coming to my
           </p>
-          <div className="mt-8 flex justify-center">
-            <svg width="60" height="60" viewBox="0 0 60 60">
+          <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-800">
+            beans<span className="text-emerald-600">Talk</span>
+          </h1>
+          <div className="mt-12 flex justify-center">
+            <svg width="80" height="80" viewBox="0 0 60 60">
               <ellipse cx="30" cy="30" rx="20" ry="12" fill="hsl(45, 90%, 55%)" />
               <ellipse cx="25" cy="27" rx="6" ry="4" fill="hsl(45, 100%, 75%)" opacity="0.6" />
             </svg>
