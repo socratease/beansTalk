@@ -300,7 +300,7 @@ const QuoteCard = ({ text, variant = 'storybook' }) => {
 
 // Year Marker Component
 const YearMarker = ({ year }) => (
-  <div className="min-h-screen flex items-center justify-center">
+  <div className="min-h-screen flex items-center justify-center relative">
     <span
       className="font-serif font-bold text-emerald-800/20"
       style={{
@@ -311,6 +311,9 @@ const YearMarker = ({ year }) => (
     >
       {year}
     </span>
+    <p className="absolute bottom-1/4 left-1/2 -translate-x-1/2 text-lg text-slate-600 font-serif">
+      The year is {year}.
+    </p>
   </div>
 );
 
