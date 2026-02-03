@@ -36,10 +36,32 @@ jobs:
           path: gh-pages-current
         continue-on-error: true
 
-      - name: Preserve PR preview directories
+      - name: Preserve only open PR preview directories
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -d "gh-pages-current/pr" ]; then
-            cp -r gh-pages-current/pr out/pr
+            mkdir -p out/pr
+            # Get list of open PR numbers
+            OPEN_PRS=$(gh pr list --state open --json number --jq '.[].number' 2>/dev/null || echo "")
+
+            # Copy only directories for open PRs
+            for pr_dir in gh-pages-current/pr/*/; do
+              if [ -d "$pr_dir" ]; then
+                pr_num=$(basename "$pr_dir")
+                if echo "$OPEN_PRS" | grep -q "^${pr_num}$"; then
+                  echo "Preserving preview for open PR #$pr_num"
+                  cp -r "$pr_dir" "out/pr/$pr_num"
+                else
+                  echo "Cleaning up preview for closed PR #$pr_num"
+                fi
+              fi
+            done
+
+            # Remove pr directory if empty
+            if [ -z "$(ls -A out/pr 2>/dev/null)" ]; then
+              rm -rf out/pr
+            fi
           fi
 
       - name: Deploy to GitHub Pages
