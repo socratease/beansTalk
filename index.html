@@ -32,8 +32,19 @@
         async function loadApp() {
             try {
                 // Get the base path for GitHub Pages (handles both root and PR preview deployments)
-                const basePath = document.querySelector('base')?.href || window.location.href.replace(/\/[^\/]*$/, '/');
-                const jsxUrl = new URL('beanstalk-preview.jsx', basePath).href;
+                // This handles URLs with or without trailing slashes
+                let basePath = window.location.pathname;
+                const lastSegment = basePath.substring(basePath.lastIndexOf('/') + 1);
+                if (!lastSegment.includes('.')) {
+                    // We're at a directory - ensure trailing slash
+                    if (!basePath.endsWith('/')) {
+                        basePath += '/';
+                    }
+                } else {
+                    // We're at a file (like index.html) - get the directory part
+                    basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+                }
+                const jsxUrl = `${window.location.origin}${basePath}beanstalk-preview.jsx`;
 
                 const response = await fetch(jsxUrl);
                 if (!response.ok) {
