@@ -449,6 +449,169 @@ const BulletList = ({ items, title }) => (
   </div>
 );
 
+// Curtain Close Component
+const CurtainClose = ({ actNumber }) => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="relative bg-gradient-to-b from-red-900 to-red-950 rounded-lg p-16 shadow-2xl border-4 border-amber-500/50">
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(0,0,0,0.1) 20px, rgba(0,0,0,0.1) 40px)'
+      }} />
+      <div className="relative z-10 text-center">
+        <div className="text-amber-400/60 text-sm font-serif tracking-widest mb-4">✦ ✦ ✦</div>
+        <h2 className="font-serif text-4xl md:text-5xl text-amber-100 font-bold">
+          End of Act {actNumber === 1 ? 'I' : 'II'}
+        </h2>
+        <div className="text-amber-400/60 text-sm font-serif tracking-widest mt-4">✦ ✦ ✦</div>
+      </div>
+    </div>
+  </div>
+);
+
+// GPT Compute Scaling Table Component
+const GPTComputeTable = () => {
+  const data = [
+    { model: 'GPT-2', compute: '4×10²¹ FLOP', cost: '$40K', growth: '—' },
+    { model: 'GPT-3', compute: '3×10²³ FLOP', cost: '$4M', growth: '+2 orders of magnitude' },
+    { model: 'GPT-4', compute: '8×10²⁴ FLOP', cost: '$100M', growth: '+1.5 orders of magnitude' },
+  ];
+
+  return (
+    <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-8 shadow-lg max-w-3xl mx-auto overflow-hidden">
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }} />
+      <div className="relative z-10">
+        <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-4">Model Compute & Cost Scaling</h3>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-emerald-800/30">
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Model</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Compute</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Cost</th>
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Growth</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row) => (
+              <tr key={row.model} className="border-b border-emerald-800/10 hover:bg-emerald-50/50 transition-colors">
+                <td className="py-3 px-4 font-mono text-emerald-900 font-semibold">{row.model}</td>
+                <td className="py-3 px-4 font-mono text-emerald-800">{row.compute}</td>
+                <td className="py-3 px-4 font-mono text-emerald-700 font-semibold">{row.cost}</td>
+                <td className="py-3 px-4 text-amber-700">{row.growth}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Historical Capex Table Component
+const HistoricalCapexTable = () => {
+  const data = [
+    { event: 'Railways (UK) (1840s)', gdp: '7%' },
+    { event: 'Electrification (US) (1930)', gdp: '0.5%' },
+    { event: 'Manhattan Project (1944)', gdp: '1%' },
+    { event: 'Interstate System (1958)', gdp: '1.5%' },
+    { event: 'Apollo Project (1966)', gdp: '0.6%' },
+    { event: 'Telecom Buildout (2000)', gdp: '1.2%' },
+    { event: 'AI Capex (2025)', gdp: '1%' },
+  ];
+
+  return (
+    <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-8 shadow-lg max-w-2xl mx-auto overflow-hidden">
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }} />
+      <div className="relative z-10">
+        <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-4">Historical Capital Expenditure</h3>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-emerald-800/30">
+              <th className="text-left py-3 px-4 font-mono text-emerald-700">Capex Event</th>
+              <th className="text-right py-3 px-4 font-mono text-emerald-700">% of GDP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row) => (
+              <tr key={row.event} className="border-b border-emerald-800/10 hover:bg-emerald-50/50 transition-colors">
+                <td className="py-3 px-4 text-emerald-900">{row.event}</td>
+                <td className="py-3 px-4 font-mono text-amber-700 font-semibold text-right">{row.gdp}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Investment Highlights Component
+const InvestmentHighlights = () => (
+  <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-8 shadow-lg max-w-3xl mx-auto overflow-hidden">
+    <div className="absolute inset-0 opacity-20" style={{
+      backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+      backgroundSize: '24px 24px'
+    }} />
+    <div className="relative z-10">
+      <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-6">Confirmed / Reported Investments</h3>
+
+      <div className="mb-6">
+        <h4 className="font-mono text-emerald-700 text-xs uppercase tracking-wider mb-3">2024 Investments</h4>
+        <ul className="space-y-2">
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Meta buys <span className="font-mono font-semibold">350,000 H100s</span></span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Amazon bought <span className="font-mono font-semibold">1 GW</span> datacenter next to nuclear plant in PA</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Microsoft and OpenAI working on <span className="font-mono font-semibold">$100B</span> cluster, target 2028</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">OpenAI reportedly seeking <span className="font-mono font-semibold">"trillions"</span> in investment for compute</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 className="font-mono text-emerald-700 text-xs uppercase tracking-wider mb-3">2025 Investments</h4>
+        <ul className="space-y-2">
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Amazon signs <span className="font-mono font-semibold">1.92 GW</span> power contract in PA</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Google: started work on 3 sites totalling <span className="font-mono font-semibold">1.8 GW</span> nuclear power</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-amber-600">•</span>
+            <span className="text-emerald-800">Meta and OpenAI describing sites planned to scale up to <span className="font-mono font-semibold">5 GW</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+
+// Title Card Component
+const TitleCard = ({ title, subtitle }) => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center">
+      <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-slate-800 font-bold">{title}</h2>
+      {subtitle && <p className="font-mono text-slate-500 mt-4 text-lg">{subtitle}</p>}
+    </div>
+  </div>
+);
+
 // Section Component - Full viewport height for clean scroll transitions
 const Section = ({ children, className = '', align = 'left' }) => (
   <section className={`min-h-screen flex flex-col justify-center py-32 px-8 ${align === 'center' ? '' : 'ml-32'} ${className}`}>
@@ -514,239 +677,409 @@ function BeansTalkPresentation() {
       {/* Content */}
       <div className="relative z-10">
 
-        {/* Opening - Just the pastoral scene with scroll indicator */}
+        {/* ===== SECTION 0: Opening - Pastoral Prologue ===== */}
         <section className="min-h-screen" />
 
         {/* Jack's Story */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed mb-8">
-            Once upon a time, there lived a poor woman, her poor cow, and her poor son Jack. 
-            Jack was out in town, and met a man who claimed he had <span className="text-emerald-600 font-semibold">magic beans</span>. 
+            Once upon a time, there lived a poor woman, her poor cow, and her poor son Jack.
+            Jack was out in town, and met a man who claimed he had <span className="text-emerald-600 font-semibold">magic beans</span>.
             Jack, a naïve boy, traded the poor cow for the magic beans.
           </p>
         </Section>
-        
-        {/* AI Promise */}
+
+        {/* ===== SECTION 1: The Magic Bean Pitch (Frontier AI Labs) ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            The goal of every frontier AI lab is to create <span className="font-semibold">automated researchers</span>. 
-            Scientific progress—across technology, biology, chemistry, medicine, materials, aerospace, computing, robotics—is 
-            limited by the small number of people who can do cutting-edge research.
+            The goal of every frontier AI lab (OpenAI, Anthropic, Google, etc) is to create <span className="font-semibold">automated researchers</span>.
+            As it stands today, scientific progress—across technology, biology, chemistry, medicine, materials, aerospace, computing, robotics—is
+            all limited by the small amount of people that can do cutting-edge research.
           </p>
           <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            There is optimism that AI can remove this bottleneck—that we can create a 
-            <span className="text-emerald-600 font-semibold">"country full of geniuses"</span> in a datacenter.
+            There is optimism that AI can remove this bottleneck—that we can create a
+            <span className="text-emerald-600 font-semibold"> "country full of geniuses"</span> in a datacenter and can blow the top off of research in all of these areas.
           </p>
         </Section>
-        
+
         {/* Singularity concept */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            This is the "singularity"—self-improving artificial intelligence, innovating at computer speed, 
-            improving the world faster than we can keep up. Diseases cured, poverty eliminated, 
-            supply chains automated.
+            There is a concept from science fiction called the <span className="font-semibold">"singularity"</span> that represents this:
+            self-improving artificial intelligence, innovating at computer speed,
+            improving the world faster than we can keep up. Diseases are cured, poverty is eliminated,
+            supply chains are automated, humans live happily for hundreds of years.
           </p>
           <p className="text-lg text-slate-700 leading-relaxed mt-4 font-semibold">
-            This is the cry of the magic bean salesman. This is the allure of the legume.
+            This is the cry of the magic bean salesman.
           </p>
         </Section>
-        
-        {/* Quote Card 1 */}
+
+        {/* ===== SECTION 2: Quote Card #1 ===== */}
         <Section align="center">
           <QuoteCard text="The allure of the legume" variant="storybook" />
         </Section>
-        
-        {/* 2018 */}
+
+        {/* ===== SECTION 3: Year Marker 2018 ===== */}
         <YearMarker year="2018" />
-        
+
+        {/* ===== SECTION 4: GPT-1 → GPT-2 ===== */}
         <Section>
           <CostChart visibleModels={2} />
           <p className="text-slate-600 mt-6 text-center">
-            GPT-1 generates nonsense. GPT-2 strings words together like a child improvising a story. 
+            GPT-1 is created. It generates words, but they are nonsense. GPT-2 is created, and it strings words together
+            in a gruesome facsimile of thought, like a child improvising a story.
             Cost: <span className="font-mono text-emerald-600">$40,000</span>.
           </p>
         </Section>
-        
-        {/* Quote Card 2 */}
-        <Section align="center">
-          <QuoteCard text="A cow ill-spent; legume lament" variant="storybook" />
-        </Section>
-        
-        {/* 2019 */}
-        <YearMarker year="2019" />
-        
+
+        {/* ===== SECTION 5: Jack's Mother (Fury → Weeping) ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            Upon hearing that Jack traded away their cow for these magic beans, 
+            Upon hearing that Jack traded away their cow for these magic beans,
             his mother is furious. She sinks into a corner and weeps.
           </p>
         </Section>
-        
+
+        {/* ===== SECTION 6: Quote Card #2 ===== */}
+        <Section align="center">
+          <QuoteCard text="A cow ill-spent; legume lament" variant="storybook" />
+        </Section>
+
+        {/* ===== SECTION 7: Year Marker 2019 ===== */}
+        <YearMarker year="2019" />
+
+        {/* ===== SECTION 8: GPT-3 ===== */}
         <Section>
           <CostChart visibleModels={3} />
           <p className="text-slate-600 mt-6 text-center">
-            GPT-3: 1000x bigger than GPT-1. Cost: <span className="font-mono text-emerald-600">$4.6M</span>.
+            GPT-3 is created. It is 1000 times bigger than GPT-1.
+            Cost: <span className="font-mono text-emerald-600">$4.6M</span>.
           </p>
         </Section>
-        
-        {/* Quote Card 3 */}
-        <Section align="center">
-          <QuoteCard text="Of magic beans, such tragic scenes" variant="storybook" />
-        </Section>
-        
-        {/* 2020 */}
-        <YearMarker year="2020" />
-        
+
+        {/* ===== SECTION 9: "No Such Thing as Magic Beans" ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            "There's no such thing as magic beans." She rips the beans from his hand 
+            Jack's mother screams at Jack—he's a fool. <span className="italic">"There's no such thing as magic beans."</span> She rips the beans from his hand
             and throws them out the window.
           </p>
         </Section>
-        
+
+        {/* ===== SECTION 10: Quote Card #3 ===== */}
+        <Section align="center">
+          <QuoteCard text="Of magic beans, such tragic scenes" variant="storybook" />
+        </Section>
+
+        {/* ===== SECTION 11: Year Marker 2020 ===== */}
+        <YearMarker year="2020" />
+
+        {/* ===== SECTION 12: GPT-3.5 Turbo → ChatGPT ===== */}
         <Section>
           <CostChart visibleModels={4} />
           <p className="text-slate-600 mt-6 text-center">
-            ChatGPT reaches <span className="font-mono text-emerald-600">100 million users</span> within 2 months.
+            GPT-3 is fine-tuned into GPT-3.5 Turbo and released as ChatGPT. It can talk to you like a human—including
+            the fact that most of what it says being totally made-up—and is bad at counting.
+            It reaches <span className="font-mono text-emerald-600">100 million users</span> within 2 months.
           </p>
         </Section>
-        
-        {/* Beanstalk emerges here (around 25% scroll) */}
+
+        {/* ===== SECTION 13: The Beanstalk Appears ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Overnight, outside the window, an enormous, impossible beanstalk shoots into the sky.
+          </p>
+        </Section>
+
         <Section align="center" id="beanstalk-emerge">
           <QuoteCard text="Illustrious beans, pants pockets; industrious green plant rockets" variant="storybook" />
           <p className="text-slate-500 mt-8 text-sm">
             ← The beanstalk has emerged
           </p>
         </Section>
-        
-        {/* 2023 */}
+
+        {/* ===== SECTION 14: Year Marker 2023 ===== */}
         <YearMarker year="2023" />
-        
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            Overnight, outside the window, an enormous, impossible beanstalk shoots into the sky.
-          </p>
-        </Section>
-        
+
+        {/* ===== SECTION 15: GPT-4o Era ===== */}
         <Section>
           <CostChart visibleModels={5} />
           <p className="text-slate-600 mt-6 text-center">
-            GPT-4: Beats most humans at most tests. Knowledge on par with domain PhDs.
+            GPT-4o is created, among many other models. They beat most humans at most tests.
+            Their knowledge is on par with domain PhDs, across every domain. They produce sound and images
+            and are universal translators. They can self-reflect, and read a whole book in seconds.
           </p>
         </Section>
-        
-        {/* Quote Card 4 */}
-        <Section align="center">
-          <QuoteCard text="Hark, on phloem towers, garbanzo empowers" variant="storybook" />
-        </Section>
-        
-        {/* 2024 */}
-        <YearMarker year="2024" />
-        
+
+        {/* ===== SECTION 16: Into the Clouds + Quote Card #5 ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            Up, up, up Jack climbs. The air thins and the fog thickens as he pushes into the clouds. 
+            Up, up, up Jack climbs. The air thins and the fog thickens as he pushes into the clouds.
             Through the mist, shapes start to take form.
           </p>
         </Section>
-        
+
+        <Section align="center">
+          <QuoteCard text="Hark, on phloem towers, garbanzo empowers" variant="storybook" />
+        </Section>
+
+        {/* ===== SECTION 17: Year Marker 2024 ===== */}
+        <YearMarker year="2024" />
+
+        {/* ===== SECTION 18: GPT-5 → 5.1 → 5.2 ===== */}
         <Section>
           <CostChart visibleModels={6} />
           <p className="text-slate-600 mt-6 text-center">
-            The state-of-the-art is a scorching potato. No lab holds it for more than a month.
+            GPT-5 is released, then 5.1, then 5.2—the state-of-the-art is a scorching potato,
+            no lab holds it for more than a month. The pace is furious. We have to create harder and harder tests
+            as the AI beats the ones we thought were unbeatable. AI solves unsolved math problems.
+            Even the best programmers are outsourcing code-writing to agents—code that improves the very agents that write them.
           </p>
         </Section>
-        
-        {/* 2026 */}
-        <YearMarker year="2026" />
-        
+
+        {/* ===== SECTION 19: Giant's Castle + Quote Card #6 ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
-            Jack pokes his head up from a cloud and sees an enormous, luxurious castle. 
+            Jack pokes his head up from a cloud, and sees an enormous, luxurious castle.
             Back home, mother hasn't left the house since.
           </p>
           <p className="text-lg text-slate-700 leading-relaxed mt-4 italic">
             "No such thing as magic beans," she mutters.
           </p>
         </Section>
-        
-        {/* Quote Card 5 */}
+
         <Section align="center">
           <QuoteCard text="Entombed and idle; legume denial" variant="storybook" />
         </Section>
-        
-        {/* Sherpa intro */}
+
+        {/* ===== SECTION 20: Year Marker 2026 ===== */}
+        <YearMarker year="2026" />
+
+        {/* ===== SECTION 21: End of Act I ===== */}
+        <CurtainClose actNumber={1} />
+
+        {/* ===== SECTION 22: "I'm Not a Magic Bean Salesman" ===== */}
         <Section>
           <p className="text-xl text-slate-800 font-semibold leading-relaxed">
-            I am not a magic bean salesman. In fact, I probably worry far more than I should 
+            I am not a magic bean salesman. In fact I probably worry far more than I should
             about coming off that way.
           </p>
           <p className="text-xl text-emerald-700 font-semibold mt-4">
             I am a beanstalk sherpa.
           </p>
         </Section>
-        
-        {/* Definition: Beanstalk */}
+
+        {/* ===== SECTION 23: Definition Card — Beanstalk ===== */}
         <Section align="center">
-          <DefinitionCard 
+          <DefinitionCard
             label="Definition"
             term="Beanstalk"
             definition="A novel, enormous infrastructure project in service of a beautiful dream. Conceptually, it is a ladder into the clouds."
           />
         </Section>
-        
-        {/* Definition: Scaling Hypothesis */}
+
+        {/* ===== SECTION 24: Definition Card — Scaling Hypothesis ===== */}
         <Section align="center">
-          <DefinitionCard 
+          <DefinitionCard
             label="Core Concept"
             term="The Scaling Hypothesis"
-            definition="AI progress hinges on a simple observation: bigger models perform better. The human brain has billions of neurons and trillions of synapses. We're building artificial versions at exponential scale."
+            definition="AI progress hinges on a pretty simple theory: bigger models perform better. The human brain has billions of neurons, and trillions of synapses, or connections between those neurons."
           />
         </Section>
-        
-        {/* Scaling Table */}
+
+        {/* ===== SECTION 25: GPT Scaling Table (Compute / Cost / Growth) ===== */}
         <Section align="center">
-          <ScalingTable />
+          <GPTComputeTable />
         </Section>
-        
-        {/* Historical Beanstalks */}
+
+        {/* ===== SECTION 26: Orders of Magnitude Demo (Cookies) ===== */}
         <Section>
-          <h2 className="font-serif text-3xl text-slate-800 mb-6">Historical Beanstalks</h2>
           <p className="text-lg text-slate-700 leading-relaxed">
-            AI is not the first beanstalk. 80 years ago, a small group figured out you could 
-            split the atom. Decades later, another group decided they could walk on the moon.
+            Bigger means adding more neurons and synapses to this artificial brain. It also requires more computers to do this.
           </p>
           <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            Both periods saw massive investment towards uncertain goals. The journey from 
-            magic beans to waltzing through a city in the sky was controversial and frenzied.
+            When we say bigger, we're talking <span className="font-semibold">orders of magnitude</span>.
+            Imagine you have 1 cookie. This is like GPT-0.5. You think this cookie is good, so you want 2 orders of magnitude more cookies.
+            That's 1 + 2 zeros—<span className="font-mono">100 cookies</span>. You can get there in a day.
           </p>
         </Section>
-        
-        {/* Not a bubble */}
+
         <Section>
-          <h2 className="font-serif text-3xl text-slate-800 mb-6">Not a Bubble</h2>
           <p className="text-lg text-slate-700 leading-relaxed">
-            A beanstalk is not a bubble. Like a bubble, a beanstalk grows suddenly, 
-            but the similarities end there. A beanstalk is permanent connective tissue 
+            Say you want another order of magnitude increase, so <span className="font-mono">1,000 cookies</span>. Now you're baking for a week. This is GPT-2.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            Someone else tries the cookies and says they want 3 MORE orders of magnitude. That's <span className="font-mono">1,000,000 cookies</span>.
+            That's one thousand people baking cookies for a week. This is getting big fast. This is GPT-3.
+          </p>
+        </Section>
+
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            A cookie company calls and they want to mass produce your cookies. They want 3 orders-of-magnitude more cookies.
+            That's <span className="font-mono">1 billion cookies</span>. Now you have to get the entire population of Chattanooga metro area to bake for 2 weeks. This is GPT-4.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            We're not done. What will you do when you need <span className="font-mono">1 trillion cookies</span>?
+            That's 1 billion people making cookies for a week. An eighth of the world's population is making cookies—the beanstalk that dominates the horizon.
+            As the world talks about the consequences of your cookie empire, the beanstalk rises.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 27: Title Card — Historical Beanstalks ===== */}
+        <TitleCard title="Historical Beanstalks" />
+
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            A beanstalk is a novel, enormous infrastructure project in service of a fantastic dream.
+            AI is not the first beanstalk.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 28: Manhattan Project ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            80 years ago, a small group of smart folk got the idea that you could take the smallest element of matter,
+            split it in half, and harness power to subdue any enemy.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 29: Apollo Program ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            A couple decades later, a different group of smart folk decided they could send a rocket through space
+            and walk on the moon—and that doing so would cement a place as the dominant global superpower.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            Both of these periods saw disproportionately massive investment in new research towards uncertain goals.
+            The journey from magic beans to waltzing through a city in the sky was controversial and frenzied.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 30: Roadmap Table ===== */}
+        <Section align="center">
+          <ScalingTable />
+          <p className="text-slate-600 mt-6 text-center">
+            The scaling hypothesis will continue being tested until it fails. This table charts a simple conceptual roadmap for doing so.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 31: Investment Highlights ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed mb-6">
+            Seems preposterous? Let's layer on actual confirmed investments from AI companies:
+          </p>
+        </Section>
+
+        <Section align="center">
+          <InvestmentHighlights />
+        </Section>
+
+        {/* ===== SECTION 32: "Not a Bubble" ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed font-semibold">
+            A beanstalk is a novel, enormous infrastructure project in service of a fantastic dream. AI is not the first beanstalk:
+          </p>
+        </Section>
+
+        {/* ===== SECTION 33: Historical Capex Table ===== */}
+        <Section align="center">
+          <HistoricalCapexTable />
+        </Section>
+
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            A beanstalk is not a bubble. Like a bubble, a beanstalk grows suddenly,
+            but the similarities end there. A beanstalk is permanent connective tissue
             to a world we don't inhabit, but want to.
           </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4 font-semibold">
-            AI is a world historical event. We are well beyond the "magic beans" stage. 
-            The beans are planted, the beanstalk is built, and we're onto exploring the Giant's castle.
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            The sense of wonder that entails is also sure to evoke fantastical ideas that never come to fruition.
+            We don't know exactly what the world in the clouds holds in store for us. But unlike Jack's story,
+            real beanstalks aren't a product of pure whimsy—it only gets built when we're reasonably sure what's up there is worth it.
           </p>
         </Section>
-        
-        {/* Core Disciplines */}
+
         <Section>
-          <h2 className="font-serif text-3xl text-slate-800 mb-8">Core Disciplines on the Beanstalk</h2>
-          <BulletList items={[
-            "Situational Awareness — Know what is happening around you. New paths are being forged, new tools invented.",
-            "Energy — There is no replacement for excitement and effort. Figure out what part of the city in the sky appeals most to you.",
-            "Aspiration — This is a rare time to put the cart before the horse, because the cart will probably learn to drive itself."
-          ]} />
+          <p className="text-lg text-slate-700 leading-relaxed font-semibold">
+            AI is not a bubble—it is a world historical event. It is a rare but precedented mobilization of capital
+            towards a hypothesis that cannot be ignored.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4 font-semibold">
+            We are well beyond the "magic beans" stage. The beans are planted, the beanstalk is built,
+            and we're onto exploring the Giant's castle, with all the risk and reward that poses.
+          </p>
         </Section>
-        
-        {/* Closing */}
+
+        {/* ===== SECTION 34: End of Act II ===== */}
+        <CurtainClose actNumber={2} />
+
+        {/* ===== SECTION 35: Title Card — On the Beanstalk and Beyond ===== */}
+        <TitleCard title="On the Beanstalk and Beyond" />
+
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            My role in all this is as a beanstalk sherpa. I didn't buy or plant the beans,
+            nor am I building out the beanstalk or taking the first steps into the world it leads to.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            I'm just more of a guide for tricky-but-established paths, on trips where a lot of people want to go and few have ever been.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 36: Core Disciplines Intro ===== */}
+        <Section>
+          <h2 className="font-serif text-3xl text-slate-800 mb-4">Core Disciplines on the Beanstalk</h2>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            What are core disciplines, on the beanstalk and beyond?
+          </p>
+          <ul className="mt-6 space-y-2">
+            <li className="text-lg text-slate-700">• Situational Awareness</li>
+            <li className="text-lg text-slate-700">• Energy</li>
+            <li className="text-lg text-slate-700">• Aspiration</li>
+          </ul>
+        </Section>
+
+        {/* ===== SECTION 37: Situational Awareness ===== */}
+        <Section>
+          <h3 className="font-serif text-2xl text-emerald-700 mb-4">1. Situational Awareness</h3>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            You must know what is happening around you. New paths are being forged, new tools invented,
+            and many of them affect your journey. You can't climb the beanstalk effectively with your eyes closed.
+            You can't tiptoe through the castle with Airpods in.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            There's a lot going on, which brings me to item 2:
+          </p>
+        </Section>
+
+        {/* ===== SECTION 38: Energy ===== */}
+        <Section>
+          <h3 className="font-serif text-2xl text-emerald-700 mb-4">2. Energy</h3>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            There is no replacement for excitement and effort. Trepidation is also understandable—and valuable—but
+            I recommend figuring out what specific part of the city in the sky you find most appealing and working towards that end.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            Which leads me to #3:
+          </p>
+        </Section>
+
+        {/* ===== SECTION 39: Aspiration ===== */}
+        <Section>
+          <h3 className="font-serif text-2xl text-emerald-700 mb-4">3. Aspiration</h3>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            The city in the clouds that AI represents is a big unknown, with a lot of glamor, but also a lot to worry about.
+            But there's something for everyone there. If you have trouble looking past some of the things that worry you—and
+            believe me, I'm right there with you—I encourage you to look for the future that you are excited about.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4">
+            AI can help cure rare diseases that currently don't get funding. AI can help people who feel overlooked by the healthcare system
+            navigate their illnesses. There's a ton of good that is possible—so find what that world looks like, and work towards it.
+          </p>
+        </Section>
+
+        {/* ===== Core disciplines, shortened ===== */}
         <Section align="center">
           <div className="bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl p-12 shadow-lg">
             <h2 className="font-serif text-3xl text-slate-800 mb-4">Core disciplines, shortened:</h2>
@@ -754,11 +1087,11 @@ function BeansTalkPresentation() {
             <p className="font-mono text-xl text-amber-600 mt-2">Believe in something.</p>
           </div>
         </Section>
-        
-        {/* Thank you */}
+
+        {/* ===== SECTION 40: Closing Screen ===== */}
         <Section align="center">
           <p className="font-serif text-2xl md:text-3xl text-slate-600 mb-4">
-            Thank you for coming to my
+            Thank you for joining my
           </p>
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-800">
             beans<span className="text-emerald-600">Talk</span>
@@ -770,10 +1103,10 @@ function BeansTalkPresentation() {
             </svg>
           </div>
         </Section>
-        
+
         {/* Spacer */}
         <div className="h-32" />
-        
+
       </div>
     </div>
   );
