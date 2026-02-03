@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-main
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /beansTalk
+
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
+
+      - name: Checkout gh-pages to preserve PR previews
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-current
+        continue-on-error: true
+
+      - name: Preserve PR preview directories
+        run: |
+          if [ -d "gh-pages-current/pr" ]; then
+            cp -r gh-pages-current/pr out/pr
+          fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          force_orphan: false
