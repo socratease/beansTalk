@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+// Using React from global scope (loaded via CDN)
+const { useState, useEffect, useRef } = React;
 
 // Pastoral Background Component
 const PastoralBackground = ({ scrollProgress }) => {
@@ -385,7 +386,7 @@ const Section = ({ children, className = '', align = 'left' }) => (
 );
 
 // Main App
-export default function BeansTalkPresentation() {
+function BeansTalkPresentation() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [beanstalkVisible, setBeanstalkVisible] = useState(false);
   const containerRef = useRef(null);
