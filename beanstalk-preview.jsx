@@ -1368,32 +1368,6 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 0: Opening - Pastoral Prologue ===== */}
         <section className="min-h-screen" />
 
-        {/* ===== SECTION 1: The Magic Bean Pitch (Frontier AI Labs) ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            The goal of every frontier AI lab (OpenAI, Anthropic, Google, etc) is to create <span className="font-semibold">automated researchers</span>.
-            As it stands today, scientific progress—across technology, biology, chemistry, medicine, materials, aerospace, computing, robotics—is
-            all limited by the small amount of people that can do cutting-edge research.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            There is optimism that AI can remove this bottleneck—that we can create a
-            <span className="text-emerald-600 font-semibold"> "country full of geniuses"</span> in a datacenter and can blow the top off of research in all of these areas.
-          </p>
-        </Section>
-
-        {/* Singularity concept */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            There is a concept from science fiction called the <span className="font-semibold">"singularity"</span> that represents this:
-            self-improving artificial intelligence, innovating at computer speed,
-            improving the world faster than we can keep up. Diseases are cured, poverty is eliminated,
-            supply chains are automated, humans live happily for hundreds of years.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4 font-semibold">
-            This is the cry of the magic bean salesman.
-          </p>
-        </Section>
-
         {/* ===== SECTION 2: Quote Card #1 ===== */}
         <Section align="center">
           <QuoteCard text="The allure of the legume" variant="storybook" />
@@ -1498,23 +1472,12 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 21: End of Act I ===== */}
         <CurtainClose actNumber={1} />
 
-        {/* ===== SECTION 22: "I'm Not a Magic Bean Salesman" ===== */}
-        <Section>
-          <p className="text-xl text-slate-800 font-semibold leading-relaxed">
-            I am not a magic bean salesman. In fact I probably worry far more than I should
-            about coming off that way.
-          </p>
-          <p className="text-xl text-emerald-700 font-semibold mt-4">
-            I am a beanstalk sherpa.
-          </p>
-        </Section>
-
         {/* ===== SECTION 23: Definition Card — Beanstalk ===== */}
         <Section align="center">
           <DefinitionCard
             label="Definition"
             term="Beanstalk"
-            definition="A novel, enormous infrastructure project in service of a beautiful dream. Conceptually, it is a ladder into the clouds."
+            definition="A novel, enormous infrastructure project in service of a beautiful dream."
           />
         </Section>
 
@@ -1523,7 +1486,7 @@ function BeansTalkPresentation() {
           <DefinitionCard
             label="Core Concept"
             term="The Scaling Hypothesis"
-            definition="AI progress hinges on a pretty simple theory: bigger models perform better. The human brain has billions of neurons, and trillions of synapses, or connections between those neurons."
+            definition="AI progress hinges on a pretty simple theory: bigger models perform better."
           />
         </Section>
 
@@ -1532,78 +1495,8 @@ function BeansTalkPresentation() {
           <GPTComputeTable />
         </Section>
 
-        {/* ===== SECTION 26: Orders of Magnitude Demo (Cookies) ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            Bigger means adding more neurons and synapses to this artificial brain. It also requires more computers to do this.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            When we say bigger, we're talking <span className="font-semibold">orders of magnitude</span>.
-            Imagine you have 1 cookie. This is like GPT-0.5. You think this cookie is good, so you want 2 orders of magnitude more cookies.
-            That's 1 + 2 zeros—<span className="font-mono">100 cookies</span>. You can get there in a day.
-          </p>
-          <div className="mt-8">
-            <OOMVisualization stage={0} />
-          </div>
-        </Section>
-
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            Say you want another order of magnitude increase, so <span className="font-mono">1,000 cookies</span>. Now you're baking for a week. This is GPT-2.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            Someone else tries the cookies and says they want 3 MORE orders of magnitude. That's <span className="font-mono">1,000,000 cookies</span>.
-            That's one thousand people baking cookies for a week. This is getting big fast. This is GPT-3.
-          </p>
-          <div className="mt-8">
-            <OOMVisualization stage={1} />
-          </div>
-        </Section>
-
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            A cookie company calls and they want to mass produce your cookies. They want 3 orders-of-magnitude more cookies.
-            That's <span className="font-mono">1 billion cookies</span>. Now you have to get the entire population of Chattanooga metro area to bake for 2 weeks. This is GPT-4.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            We're not done. What will you do when you need <span className="font-mono">1 trillion cookies</span>?
-            That's 1 billion people making cookies for a week. An eighth of the world's population is making cookies—the beanstalk that dominates the horizon.
-            As the world talks about the consequences of your cookie empire, the beanstalk rises.
-          </p>
-          <div className="mt-8">
-            <OOMVisualization stage={2} />
-          </div>
-        </Section>
-
         {/* ===== SECTION 27: Title Card — Historical Beanstalks ===== */}
         <TitleCard title="Historical Beanstalks" />
-
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            A beanstalk is a novel, enormous infrastructure project in service of a fantastic dream.
-            AI is not the first beanstalk.
-          </p>
-        </Section>
-
-        {/* ===== SECTION 28: Manhattan Project ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            80 years ago, a small group of smart folk got the idea that you could take the smallest element of matter,
-            split it in half, and harness power to subdue any enemy.
-          </p>
-        </Section>
-
-        {/* ===== SECTION 29: Apollo Program ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            A couple decades later, a different group of smart folk decided they could send a rocket through space
-            and walk on the moon—and that doing so would cement a place as the dominant global superpower.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            Both of these periods saw disproportionately massive investment in new research towards uncertain goals.
-            The journey from magic beans to waltzing through a city in the sky was controversial and frenzied.
-          </p>
-        </Section>
 
         {/* ===== SECTION 30: Roadmap Table ===== */}
         <Section align="center">
@@ -1614,21 +1507,8 @@ function BeansTalkPresentation() {
         </Section>
 
         {/* ===== SECTION 31: Investment Highlights ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed mb-6">
-            Seems preposterous? Let's layer on actual confirmed investments from AI companies:
-          </p>
-        </Section>
-
         <Section align="center">
           <InvestmentHighlights />
-        </Section>
-
-        {/* ===== SECTION 32: "Not a Bubble" ===== */}
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed font-semibold">
-            A beanstalk is a novel, enormous infrastructure project in service of a fantastic dream. AI is not the first beanstalk:
-          </p>
         </Section>
 
         {/* ===== SECTION 33: Historical Capex Table ===== */}
@@ -1642,21 +1522,12 @@ function BeansTalkPresentation() {
             but the similarities end there. A beanstalk is permanent connective tissue
             to a world we don't inhabit, but want to.
           </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            The sense of wonder that entails is also sure to evoke fantastical ideas that never come to fruition.
-            We don't know exactly what the world in the clouds holds in store for us. But unlike Jack's story,
-            real beanstalks aren't a product of pure whimsy—it only gets built when we're reasonably sure what's up there is worth it.
-          </p>
         </Section>
 
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed font-semibold">
             AI is not a bubble—it is a world historical event. It is a rare but precedented mobilization of capital
             towards a hypothesis that cannot be ignored.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4 font-semibold">
-            We are well beyond the "magic beans" stage. The beans are planted, the beanstalk is built,
-            and we're onto exploring the Giant's castle, with all the risk and reward that poses.
           </p>
         </Section>
 
@@ -1666,66 +1537,27 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 35: Title Card — On the Beanstalk and Beyond ===== */}
         <TitleCard title="On the Beanstalk and Beyond" />
 
-        <Section>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            My role in all this is as a beanstalk sherpa. I didn't buy or plant the beans,
-            nor am I building out the beanstalk or taking the first steps into the world it leads to.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            I'm just more of a guide for tricky-but-established paths, on trips where a lot of people want to go and few have ever been.
-          </p>
-        </Section>
-
         {/* ===== SECTION 36: Core Disciplines Intro ===== */}
         <Section>
           <h2 className="font-serif text-3xl text-slate-800 mb-4">Core Disciplines on the Beanstalk</h2>
           <p className="text-lg text-slate-700 leading-relaxed">
             What are core disciplines, on the beanstalk and beyond?
           </p>
-          <ul className="mt-6 space-y-2">
-            <li className="text-lg text-slate-700">• Situational Awareness</li>
-            <li className="text-lg text-slate-700">• Energy</li>
-            <li className="text-lg text-slate-700">• Aspiration</li>
-          </ul>
         </Section>
 
         {/* ===== SECTION 37: Situational Awareness ===== */}
         <Section>
           <h3 className="font-serif text-2xl text-emerald-700 mb-4">1. Situational Awareness</h3>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            You must know what is happening around you. New paths are being forged, new tools invented,
-            and many of them affect your journey. You can't climb the beanstalk effectively with your eyes closed.
-            You can't tiptoe through the castle with Airpods in.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            There's a lot going on, which brings me to item 2:
-          </p>
         </Section>
 
         {/* ===== SECTION 38: Energy ===== */}
         <Section>
           <h3 className="font-serif text-2xl text-emerald-700 mb-4">2. Energy</h3>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            There is no replacement for excitement and effort. Trepidation is also understandable—and valuable—but
-            I recommend figuring out what specific part of the city in the sky you find most appealing and working towards that end.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            Which leads me to #3:
-          </p>
         </Section>
 
         {/* ===== SECTION 39: Aspiration ===== */}
         <Section>
           <h3 className="font-serif text-2xl text-emerald-700 mb-4">3. Aspiration</h3>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            The city in the clouds that AI represents is a big unknown, with a lot of glamor, but also a lot to worry about.
-            But there's something for everyone there. If you have trouble looking past some of the things that worry you—and
-            believe me, I'm right there with you—I encourage you to look for the future that you are excited about.
-          </p>
-          <p className="text-lg text-slate-700 leading-relaxed mt-4">
-            AI can help cure rare diseases that currently don't get funding. AI can help people who feel overlooked by the healthcare system
-            navigate their illnesses. There's a ton of good that is possible—so find what that world looks like, and work towards it.
-          </p>
         </Section>
 
         {/* ===== Core disciplines, shortened ===== */}
@@ -1740,7 +1572,7 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 40: Closing Screen ===== */}
         <Section align="center">
           <p className="font-serif text-2xl md:text-3xl text-slate-600 mb-4">
-            Thank you for joining my
+            Thank you for joining our
           </p>
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-slate-800">
             beans<span className="text-emerald-600">Talk</span>
