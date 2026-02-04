@@ -1368,6 +1368,15 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 0: Opening - Pastoral Prologue ===== */}
         <section className="min-h-screen" />
 
+        {/* Jack's Story */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed mb-8">
+            Once upon a time, there lived a poor woman, her poor cow, and her poor son Jack.
+            Jack was out in town, and met a man who claimed he had <span className="text-emerald-600 font-semibold">magic beans</span>.
+            Jack, a naïve boy, traded the poor cow for the magic beans.
+          </p>
+        </Section>
+
         {/* ===== SECTION 1: The Magic Bean Pitch (Frontier AI Labs) ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
@@ -1412,6 +1421,14 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 5: Jack's Mother (Fury → Weeping) ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Upon hearing that Jack traded away their cow for these magic beans,
+            his mother is furious. She sinks into a corner and weeps.
+          </p>
+        </Section>
+
         {/* ===== SECTION 6: Quote Card #2 ===== */}
         <Section align="center">
           <QuoteCard text="A cow ill-spent; legume lament" variant="storybook" />
@@ -1426,6 +1443,14 @@ function BeansTalkPresentation() {
           <p className="text-slate-600 mt-6 text-center">
             GPT-3 is created. It is 1000 times bigger than GPT-1.
             Cost: <span className="font-mono text-emerald-600">$4.6M</span>.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 9: "No Such Thing as Magic Beans" ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Jack's mother screams at Jack—he's a fool. <span className="italic">"There's no such thing as magic beans."</span> She rips the beans from his hand
+            and throws them out the window.
           </p>
         </Section>
 
@@ -1447,7 +1472,13 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
-        {/* ===== SECTION 13: Quote Card #4 - Beanstalk Emerges ===== */}
+        {/* ===== SECTION 13: The Beanstalk Appears ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Overnight, outside the window, an enormous, impossible beanstalk shoots into the sky.
+          </p>
+        </Section>
+
         <Section align="center" id="beanstalk-emerge">
           <QuoteCard text="Illustrious beans, pants pockets; industrious green plant rockets" variant="storybook" />
           <p className="text-slate-500 mt-8 text-sm">
@@ -1468,7 +1499,14 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
-        {/* ===== SECTION 16: Quote Card #5 ===== */}
+        {/* ===== SECTION 16: Into the Clouds + Quote Card #5 ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Up, up, up Jack climbs. The air thins and the fog thickens as he pushes into the clouds.
+            Through the mist, shapes start to take form.
+          </p>
+        </Section>
+
         <Section align="center">
           <QuoteCard text="Upon phloem towers, garbanzo aflower" variant="storybook" />
         </Section>
@@ -1487,7 +1525,17 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
-        {/* ===== SECTION 19: Quote Card #6 ===== */}
+        {/* ===== SECTION 19: Giant's Castle + Quote Card #6 ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Jack pokes his head up from a cloud, and sees an enormous, luxurious castle.
+            Back home, mother hasn't left the house since.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4 italic">
+            "No such thing as magic beans," she mutters.
+          </p>
+        </Section>
+
         <Section align="center">
           <QuoteCard text="Entombed and idle; legume denial" variant="storybook" />
         </Section>
