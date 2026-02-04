@@ -217,11 +217,11 @@
 - Chart scrolls away.
 - Quote card returns:
 
-  > **“Hark, on phloem towers, garbanzo empowers”**
+  > **"Upon phloem towers, garbanzo aflower"**
 
 **Voiceover / Script:**
 
-> Upon phloem towers, garbanzo empowers.
+> Upon phloem towers, garbanzo aflower.
 
 ---
 

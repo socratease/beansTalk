@@ -23,8 +23,13 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir -p out
+          mkdir -p out/script
+          # Non-script version (default)
           cp index.html out/
           cp beanstalk-preview.jsx out/
+          # Script version (at /script/)
+          cp script/index.html out/script/
+          cp beanstalk-preview-script.jsx out/
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
