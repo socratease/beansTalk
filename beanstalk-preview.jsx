@@ -4,23 +4,28 @@ const { useState, useEffect, useRef } = React;
 // Pastoral Background Component
 const PastoralBackground = ({ scrollProgress }) => {
   const fogOpacity = Math.min(scrollProgress * 0.7, 0.6);
-  
+
+  // Futuristic elements appear during early scroll (sections 1-2, roughly 0.05 to 0.15 scroll)
+  const futuristicProgress = scrollProgress > 0.03 && scrollProgress < 0.18
+    ? Math.min((scrollProgress - 0.03) / 0.08, 1)
+    : scrollProgress >= 0.18 ? Math.max(0, 1 - (scrollProgress - 0.18) / 0.05) : 0;
+
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
       {/* Sky gradient */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(to bottom, 
-            hsl(200, 60%, 85%) 0%, 
+          background: `linear-gradient(to bottom,
+            hsl(200, 60%, 85%) 0%,
             hsl(200, 50%, 90%) 30%,
             hsl(45, 40%, 88%) 70%,
             hsl(35, 45%, 80%) 100%)`
         }}
       />
-      
+
       {/* Sun */}
-      <div 
+      <div
         className="absolute w-24 h-24 rounded-full"
         style={{
           top: '8%',
@@ -30,7 +35,7 @@ const PastoralBackground = ({ scrollProgress }) => {
           filter: 'blur(2px)'
         }}
       />
-      
+
       {/* Far Mountains */}
       <svg className="absolute bottom-0 w-full h-2/3" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMax slice">
         <path
@@ -44,7 +49,7 @@ const PastoralBackground = ({ scrollProgress }) => {
           opacity={0.6 - fogOpacity * 0.3}
         />
       </svg>
-      
+
       {/* Rolling Hills */}
       <svg className="absolute bottom-0 w-full h-1/2" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
         {/* Far hill */}
@@ -63,7 +68,203 @@ const PastoralBackground = ({ scrollProgress }) => {
           fill="hsl(105, 45%, 38%)"
         />
       </svg>
-      
+
+      {/* ===== FUTURISTIC ELEMENTS (appear during early scroll) ===== */}
+
+      {/* Modern Windmill / Wind Turbine */}
+      {futuristicProgress > 0 && (
+        <svg
+          className="absolute bottom-32 transition-all duration-500"
+          style={{
+            right: '55%',
+            width: '80px',
+            height: '160px',
+            opacity: futuristicProgress,
+            transform: `translateY(${(1 - futuristicProgress) * 30}px)`
+          }}
+          viewBox="0 0 40 80"
+        >
+          {/* Tower */}
+          <path d="M18 80 L22 80 L21 25 L19 25 Z" fill="hsl(0, 0%, 90%)" />
+          {/* Hub */}
+          <circle cx="20" cy="22" r="4" fill="hsl(0, 0%, 85%)" />
+          {/* Blades - rotating */}
+          <g style={{ transformOrigin: '20px 22px', animation: 'spin 4s linear infinite' }}>
+            <ellipse cx="20" cy="8" rx="2" ry="14" fill="hsl(0, 0%, 95%)" />
+            <ellipse cx="32" cy="28" rx="2" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(120, 20, 22)" />
+            <ellipse cx="8" cy="28" rx="2" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(240, 20, 22)" />
+          </g>
+        </svg>
+      )}
+
+      {/* Solar Panels on hillside */}
+      {futuristicProgress > 0.2 && (
+        <svg
+          className="absolute bottom-36 transition-all duration-500"
+          style={{
+            left: '60%',
+            width: '100px',
+            height: '40px',
+            opacity: Math.min((futuristicProgress - 0.2) * 1.5, 1),
+            transform: `translateY(${(1 - futuristicProgress) * 20}px)`
+          }}
+          viewBox="0 0 100 40"
+        >
+          {/* Solar panel array */}
+          <rect x="5" y="10" width="25" height="15" fill="hsl(220, 60%, 25%)" transform="skewY(-10)" rx="1" />
+          <rect x="35" y="8" width="25" height="15" fill="hsl(220, 60%, 30%)" transform="skewY(-10)" rx="1" />
+          <rect x="65" y="6" width="25" height="15" fill="hsl(220, 60%, 28%)" transform="skewY(-10)" rx="1" />
+          {/* Panel grid lines */}
+          <line x1="17" y1="10" x2="17" y2="25" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
+          <line x1="47" y1="8" x2="47" y2="23" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
+          <line x1="77" y1="6" x2="77" y2="21" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
+        </svg>
+      )}
+
+      {/* Smart Tractor */}
+      {futuristicProgress > 0.1 && (
+        <svg
+          className="absolute bottom-20 transition-all duration-500"
+          style={{
+            left: '40%',
+            width: '50px',
+            height: '35px',
+            opacity: Math.min((futuristicProgress - 0.1) * 1.5, 1),
+            transform: `translateX(${futuristicProgress * 20}px)`
+          }}
+          viewBox="0 0 50 35"
+        >
+          {/* Body */}
+          <rect x="10" y="12" width="28" height="15" fill="hsl(200, 70%, 45%)" rx="3" />
+          {/* Cabin */}
+          <rect x="25" y="5" width="12" height="12" fill="hsl(200, 50%, 80%)" rx="2" />
+          {/* Wheels */}
+          <circle cx="15" cy="27" r="6" fill="hsl(0, 0%, 25%)" />
+          <circle cx="35" cy="27" r="8" fill="hsl(0, 0%, 25%)" />
+          {/* Antenna */}
+          <line x1="30" y1="5" x2="30" y2="0" stroke="hsl(0, 0%, 40%)" strokeWidth="1" />
+          <circle cx="30" cy="0" r="1.5" fill="hsl(0, 80%, 50%)" />
+          {/* GPS dome */}
+          <circle cx="20" cy="10" r="3" fill="hsl(0, 0%, 90%)" />
+        </svg>
+      )}
+
+      {/* Robot Farmer */}
+      {futuristicProgress > 0.3 && (
+        <svg
+          className="absolute bottom-24 transition-all duration-500"
+          style={{
+            left: '15%',
+            width: '30px',
+            height: '45px',
+            opacity: Math.min((futuristicProgress - 0.3) * 1.5, 1),
+            transform: `translateY(${(1 - futuristicProgress) * 15}px)`
+          }}
+          viewBox="0 0 30 45"
+        >
+          {/* Body */}
+          <rect x="8" y="18" width="14" height="18" fill="hsl(180, 30%, 70%)" rx="3" />
+          {/* Head */}
+          <rect x="9" y="8" width="12" height="10" fill="hsl(180, 30%, 75%)" rx="2" />
+          {/* Eyes */}
+          <circle cx="12" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
+          <circle cx="18" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
+          {/* Legs */}
+          <rect x="10" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
+          <rect x="16" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
+          {/* Arms */}
+          <rect x="3" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
+          <rect x="22" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
+          {/* Antenna */}
+          <line x1="15" y1="8" x2="15" y2="3" stroke="hsl(180, 30%, 60%)" strokeWidth="1" />
+          <circle cx="15" cy="2" r="1.5" fill="hsl(120, 80%, 50%)" />
+        </svg>
+      )}
+
+      {/* Small Rocket/Spaceship in sky */}
+      {futuristicProgress > 0.4 && (
+        <svg
+          className="absolute transition-all duration-700"
+          style={{
+            top: '15%',
+            right: '25%',
+            width: '25px',
+            height: '50px',
+            opacity: Math.min((futuristicProgress - 0.4) * 2, 0.8),
+            transform: `translateY(${(1 - futuristicProgress) * 40}px) rotate(-15deg)`
+          }}
+          viewBox="0 0 25 50"
+        >
+          {/* Rocket body */}
+          <ellipse cx="12.5" cy="25" rx="6" ry="18" fill="hsl(0, 0%, 95%)" />
+          {/* Nose cone */}
+          <ellipse cx="12.5" cy="8" rx="4" ry="8" fill="hsl(0, 70%, 50%)" />
+          {/* Window */}
+          <circle cx="12.5" cy="20" r="3" fill="hsl(200, 80%, 70%)" />
+          {/* Fins */}
+          <polygon points="6,40 12,35 12,45" fill="hsl(0, 70%, 50%)" />
+          <polygon points="19,40 13,35 13,45" fill="hsl(0, 70%, 50%)" />
+          {/* Exhaust flame */}
+          <ellipse cx="12.5" cy="46" rx="3" ry="4" fill="hsl(35, 100%, 60%)" opacity="0.8" />
+          <ellipse cx="12.5" cy="48" rx="2" ry="3" fill="hsl(45, 100%, 70%)" opacity="0.6" />
+        </svg>
+      )}
+
+      {/* Drone */}
+      {futuristicProgress > 0.5 && (
+        <svg
+          className="absolute transition-all duration-500"
+          style={{
+            top: '30%',
+            left: '70%',
+            width: '35px',
+            height: '20px',
+            opacity: Math.min((futuristicProgress - 0.5) * 2, 0.9),
+            transform: `translateY(${Math.sin(Date.now() / 500) * 3}px)`
+          }}
+          viewBox="0 0 35 20"
+        >
+          {/* Body */}
+          <ellipse cx="17.5" cy="12" rx="6" ry="4" fill="hsl(0, 0%, 30%)" />
+          {/* Arms */}
+          <line x1="5" y1="10" x2="12" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
+          <line x1="30" y1="10" x2="23" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
+          <line x1="5" y1="14" x2="12" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
+          <line x1="30" y1="14" x2="23" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
+          {/* Rotors */}
+          <ellipse cx="5" cy="10" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+          <ellipse cx="30" cy="10" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+          <ellipse cx="5" cy="14" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+          <ellipse cx="30" cy="14" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+          {/* Camera */}
+          <circle cx="17.5" cy="16" r="2" fill="hsl(0, 0%, 20%)" />
+        </svg>
+      )}
+
+      {/* Floating Holographic Display */}
+      {futuristicProgress > 0.6 && (
+        <div
+          className="absolute transition-all duration-500"
+          style={{
+            bottom: '35%',
+            left: '30%',
+            width: '60px',
+            height: '40px',
+            opacity: Math.min((futuristicProgress - 0.6) * 2, 0.7),
+            background: 'linear-gradient(135deg, hsla(180, 100%, 70%, 0.3) 0%, hsla(200, 100%, 60%, 0.2) 100%)',
+            border: '1px solid hsla(180, 100%, 80%, 0.5)',
+            borderRadius: '4px',
+            boxShadow: '0 0 15px hsla(180, 100%, 70%, 0.3)'
+          }}
+        >
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-3/4 h-1 bg-cyan-400/50 rounded" />
+          </div>
+        </div>
+      )}
+
+      {/* ===== END FUTURISTIC ELEMENTS ===== */}
+
       {/* Cottage */}
       <svg className="absolute bottom-20 right-1/4 w-32 h-32" viewBox="0 0 100 100">
         {/* Main house */}
@@ -78,13 +279,13 @@ const PastoralBackground = ({ scrollProgress }) => {
         {/* Chimney */}
         <rect x="65" y="25" width="10" height="20" fill="hsl(0, 40%, 50%)" />
       </svg>
-      
+
       {/* Tree */}
       <svg className="absolute bottom-16 right-1/3 w-20 h-28" viewBox="0 0 60 80">
         <rect x="25" y="50" width="10" height="30" fill="hsl(25, 50%, 35%)" />
         <ellipse cx="30" cy="35" rx="25" ry="30" fill="hsl(120, 45%, 35%)" />
       </svg>
-      
+
       {/* Cow */}
       <svg className="absolute bottom-24 left-1/4 w-16 h-12" viewBox="0 0 60 40">
         <ellipse cx="30" cy="25" rx="20" ry="12" fill="hsl(30, 10%, 90%)" />
@@ -94,19 +295,19 @@ const PastoralBackground = ({ scrollProgress }) => {
         <rect x="35" y="32" width="4" height="8" fill="hsl(30, 10%, 85%)" />
         <rect x="42" y="32" width="4" height="8" fill="hsl(30, 10%, 85%)" />
       </svg>
-      
+
       {/* Atmospheric fog overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to top, 
-            transparent 0%, 
+          background: `linear-gradient(to top,
+            transparent 0%,
             rgba(255,255,255,${fogOpacity * 0.3}) 30%,
             rgba(255,255,255,${fogOpacity * 0.5}) 60%,
             rgba(255,255,255,${fogOpacity * 0.7}) 100%)`,
         }}
       />
-      
+
       {/* Cloud layers */}
       {scrollProgress > 0.3 && (
         <div className="absolute inset-0 pointer-events-none" style={{ opacity: fogOpacity }}>
@@ -115,15 +316,88 @@ const PastoralBackground = ({ scrollProgress }) => {
           <div className="absolute w-56 h-18 rounded-full bg-white/35 blur-xl" style={{ top: '15%', left: '40%' }} />
         </div>
       )}
+
+      {/* CSS Animation for windmill */}
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };
 
-// Beanstalk Progress Component - Bigger and thicker
+// Beanstalk Progress Component - Segment-based growth (pieces stay fixed once drawn)
 const BeanstalkProgress = ({ scrollProgress, visible }) => {
   if (!visible) return null;
 
   const growthProgress = Math.min((scrollProgress - 0.25) / 0.75, 1);
+
+  // Define fixed stalk segments that appear at specific thresholds
+  // Each segment has a fixed position and appears when growthProgress exceeds its threshold
+  const stalkSegments = [
+    { threshold: 0, y1: 800, y2: 750, x1: 75, x2: 80, width: 45 },
+    { threshold: 0.08, y1: 750, y2: 690, x1: 80, x2: 70, width: 44 },
+    { threshold: 0.16, y1: 690, y2: 620, x1: 70, x2: 85, width: 43 },
+    { threshold: 0.24, y1: 620, y2: 550, x1: 85, x2: 72, width: 42 },
+    { threshold: 0.32, y1: 550, y2: 480, x1: 72, x2: 80, width: 40 },
+    { threshold: 0.40, y1: 480, y2: 410, x1: 80, x2: 68, width: 38 },
+    { threshold: 0.48, y1: 410, y2: 340, x1: 68, x2: 78, width: 36 },
+    { threshold: 0.56, y1: 340, y2: 270, x1: 78, x2: 72, width: 34 },
+    { threshold: 0.64, y1: 270, y2: 200, x1: 72, x2: 76, width: 32 },
+    { threshold: 0.72, y1: 200, y2: 130, x1: 76, x2: 74, width: 30 },
+    { threshold: 0.85, y1: 130, y2: 60, x1: 74, x2: 75, width: 28 },
+  ];
+
+  // Secondary vine segments (thinner, offset)
+  const vineSegments = [
+    { threshold: 0.05, y1: 790, y2: 730, x1: 90, x2: 100, width: 20 },
+    { threshold: 0.15, y1: 730, y2: 660, x1: 100, x2: 88, width: 19 },
+    { threshold: 0.25, y1: 660, y2: 590, x1: 88, x2: 98, width: 18 },
+    { threshold: 0.35, y1: 590, y2: 520, x1: 98, x2: 85, width: 17 },
+    { threshold: 0.45, y1: 520, y2: 450, x1: 85, x2: 95, width: 16 },
+    { threshold: 0.55, y1: 450, y2: 380, x1: 95, x2: 82, width: 15 },
+    { threshold: 0.65, y1: 380, y2: 310, x1: 82, x2: 90, width: 14 },
+    { threshold: 0.75, y1: 310, y2: 240, x1: 90, x2: 85, width: 13 },
+    { threshold: 0.88, y1: 240, y2: 170, x1: 85, x2: 88, width: 12 },
+  ];
+
+  // Tertiary vine (thinnest, other side)
+  const tertiarySegments = [
+    { threshold: 0.10, y1: 770, y2: 700, x1: 60, x2: 50, width: 12 },
+    { threshold: 0.22, y1: 700, y2: 630, x1: 50, x2: 62, width: 11 },
+    { threshold: 0.34, y1: 630, y2: 560, x1: 62, x2: 48, width: 10 },
+    { threshold: 0.46, y1: 560, y2: 490, x1: 48, x2: 58, width: 10 },
+    { threshold: 0.58, y1: 490, y2: 420, x1: 58, x2: 52, width: 9 },
+    { threshold: 0.70, y1: 420, y2: 350, x1: 52, x2: 56, width: 9 },
+    { threshold: 0.82, y1: 350, y2: 280, x1: 56, x2: 54, width: 8 },
+  ];
+
+  // Fixed leaf positions (appear and stay at their fixed y positions)
+  const leaves = [
+    { threshold: 0.12, cx: 115, cy: 720, rx: 35, ry: 16, rotation: -25, color: 'hsl(120, 50%, 38%)' },
+    { threshold: 0.20, cx: 35, cy: 660, rx: 32, ry: 14, rotation: 30, color: 'hsl(120, 55%, 36%)' },
+    { threshold: 0.30, cx: 120, cy: 580, rx: 30, ry: 13, rotation: -20, color: 'hsl(120, 50%, 40%)' },
+    { threshold: 0.40, cx: 30, cy: 510, rx: 28, ry: 12, rotation: 25, color: 'hsl(120, 55%, 38%)' },
+    { threshold: 0.50, cx: 110, cy: 440, rx: 26, ry: 11, rotation: -18, color: 'hsl(120, 50%, 40%)' },
+    { threshold: 0.60, cx: 40, cy: 370, rx: 24, ry: 10, rotation: 22, color: 'hsl(120, 52%, 42%)' },
+    { threshold: 0.70, cx: 115, cy: 300, rx: 22, ry: 9, rotation: -15, color: 'hsl(120, 50%, 42%)' },
+    { threshold: 0.80, cx: 45, cy: 230, rx: 20, ry: 8, rotation: 20, color: 'hsl(120, 52%, 45%)' },
+    { threshold: 0.90, cx: 105, cy: 160, rx: 18, ry: 7, rotation: -12, color: 'hsl(120, 55%, 45%)' },
+  ];
+
+  // Fixed bean positions
+  const beans = [
+    { threshold: 0.18, cx: 95, cy: 690, rx: 12, ry: 7 },
+    { threshold: 0.28, cx: 55, cy: 620, rx: 11, ry: 7 },
+    { threshold: 0.38, cx: 92, cy: 540, rx: 11, ry: 6 },
+    { threshold: 0.48, cx: 58, cy: 470, rx: 10, ry: 6 },
+    { threshold: 0.58, cx: 88, cy: 400, rx: 10, ry: 6 },
+    { threshold: 0.68, cx: 62, cy: 330, rx: 9, ry: 5 },
+    { threshold: 0.78, cx: 85, cy: 260, rx: 9, ry: 5 },
+    { threshold: 0.88, cx: 65, cy: 190, rx: 8, ry: 5 },
+  ];
 
   return (
     <div className="fixed left-0 top-0 w-44 h-screen z-20 pointer-events-none">
@@ -152,110 +426,101 @@ const BeanstalkProgress = ({ scrollProgress, visible }) => {
           </filter>
         </defs>
 
-        {/* Main stalk - grows from bottom, much thicker */}
-        <path
-          d={`M75 800 Q55 ${800 - growthProgress * 300} 85 ${800 - growthProgress * 400} Q60 ${800 - growthProgress * 550} 75 ${800 - growthProgress * 700}`}
-          stroke="url(#stalkGrad)"
-          strokeWidth="45"
-          fill="none"
-          strokeLinecap="round"
-          filter="url(#stalkShadow)"
-          style={{
-            strokeDasharray: 1000,
-            strokeDashoffset: 1000 - (growthProgress * 1000),
-            transition: 'stroke-dashoffset 0.1s ease-out'
-          }}
-        />
+        {/* Main stalk segments - each appears and stays fixed */}
+        {stalkSegments.map((seg, i) => {
+          if (growthProgress < seg.threshold) return null;
+          const segmentProgress = Math.min((growthProgress - seg.threshold) / 0.08, 1);
+          return (
+            <line
+              key={`stalk-${i}`}
+              x1={seg.x1}
+              y1={seg.y1}
+              x2={seg.x1 + (seg.x2 - seg.x1) * segmentProgress}
+              y2={seg.y1 + (seg.y2 - seg.y1) * segmentProgress}
+              stroke="url(#stalkGrad)"
+              strokeWidth={seg.width}
+              strokeLinecap="round"
+              filter="url(#stalkShadow)"
+            />
+          );
+        })}
 
-        {/* Secondary vine - thicker */}
-        <path
-          d={`M85 800 Q105 ${800 - growthProgress * 280} 68 ${800 - growthProgress * 380} Q95 ${800 - growthProgress * 520} 78 ${800 - growthProgress * 680}`}
-          stroke="url(#stalkGrad2)"
-          strokeWidth="22"
-          fill="none"
-          strokeLinecap="round"
-          opacity={0.9}
-          style={{
-            strokeDasharray: 800,
-            strokeDashoffset: 800 - (growthProgress * 800),
-            transition: 'stroke-dashoffset 0.15s ease-out'
-          }}
-        />
+        {/* Secondary vine segments */}
+        {vineSegments.map((seg, i) => {
+          if (growthProgress < seg.threshold) return null;
+          const segmentProgress = Math.min((growthProgress - seg.threshold) / 0.10, 1);
+          return (
+            <line
+              key={`vine-${i}`}
+              x1={seg.x1}
+              y1={seg.y1}
+              x2={seg.x1 + (seg.x2 - seg.x1) * segmentProgress}
+              y2={seg.y1 + (seg.y2 - seg.y1) * segmentProgress}
+              stroke="url(#stalkGrad2)"
+              strokeWidth={seg.width}
+              strokeLinecap="round"
+              opacity={0.9}
+            />
+          );
+        })}
 
-        {/* Tertiary vine - adds more presence */}
-        <path
-          d={`M70 800 Q50 ${800 - growthProgress * 250} 80 ${800 - growthProgress * 350} Q55 ${800 - growthProgress * 480} 72 ${800 - growthProgress * 620}`}
-          stroke="hsl(120, 40%, 28%)"
-          strokeWidth="14"
-          fill="none"
-          strokeLinecap="round"
-          opacity={0.7}
-          style={{
-            strokeDasharray: 700,
-            strokeDashoffset: 700 - (growthProgress * 700),
-            transition: 'stroke-dashoffset 0.18s ease-out'
-          }}
-        />
+        {/* Tertiary vine segments */}
+        {tertiarySegments.map((seg, i) => {
+          if (growthProgress < seg.threshold) return null;
+          const segmentProgress = Math.min((growthProgress - seg.threshold) / 0.12, 1);
+          return (
+            <line
+              key={`tertiary-${i}`}
+              x1={seg.x1}
+              y1={seg.y1}
+              x2={seg.x1 + (seg.x2 - seg.x1) * segmentProgress}
+              y2={seg.y1 + (seg.y2 - seg.y1) * segmentProgress}
+              stroke="hsl(120, 40%, 28%)"
+              strokeWidth={seg.width}
+              strokeLinecap="round"
+              opacity={0.7}
+            />
+          );
+        })}
 
-        {/* Leaves - bigger */}
-        {growthProgress > 0.15 && (
-          <ellipse cx="115" cy={800 - growthProgress * 220} rx="35" ry="16" fill="hsl(120, 50%, 38%)"
-            style={{ opacity: Math.min((growthProgress - 0.15) * 3, 1), transform: 'rotate(-25deg)', transformOrigin: '115px ' + (800 - growthProgress * 220) + 'px' }} />
-        )}
-        {growthProgress > 0.2 && (
-          <ellipse cx="120" cy={800 - growthProgress * 250} rx="32" ry="14" fill="hsl(120, 50%, 40%)"
-            style={{ opacity: Math.min((growthProgress - 0.2) * 3, 1), transform: 'rotate(-20deg)', transformOrigin: '120px ' + (800 - growthProgress * 250) + 'px' }} />
-        )}
-        {growthProgress > 0.35 && (
-          <ellipse cx="35" cy={800 - growthProgress * 350} rx="30" ry="13" fill="hsl(120, 55%, 36%)"
-            style={{ opacity: Math.min((growthProgress - 0.35) * 3, 1), transform: 'rotate(30deg)', transformOrigin: '35px ' + (800 - growthProgress * 350) + 'px' }} />
-        )}
-        {growthProgress > 0.4 && (
-          <ellipse cx="30" cy={800 - growthProgress * 400} rx="28" ry="12" fill="hsl(120, 55%, 38%)"
-            style={{ opacity: Math.min((growthProgress - 0.4) * 3, 1), transform: 'rotate(25deg)', transformOrigin: '30px ' + (800 - growthProgress * 400) + 'px' }} />
-        )}
-        {growthProgress > 0.55 && (
-          <ellipse cx="110" cy={800 - growthProgress * 480} rx="26" ry="11" fill="hsl(120, 50%, 40%)"
-            style={{ opacity: Math.min((growthProgress - 0.55) * 3, 1), transform: 'rotate(-18deg)', transformOrigin: '110px ' + (800 - growthProgress * 480) + 'px' }} />
-        )}
-        {growthProgress > 0.6 && (
-          <ellipse cx="115" cy={800 - growthProgress * 520} rx="24" ry="10" fill="hsl(120, 50%, 42%)"
-            style={{ opacity: Math.min((growthProgress - 0.6) * 3, 1), transform: 'rotate(-15deg)', transformOrigin: '115px ' + (800 - growthProgress * 520) + 'px' }} />
-        )}
-        {growthProgress > 0.75 && (
-          <ellipse cx="40" cy={800 - growthProgress * 600} rx="22" ry="9" fill="hsl(120, 52%, 42%)"
-            style={{ opacity: Math.min((growthProgress - 0.75) * 3, 1), transform: 'rotate(22deg)', transformOrigin: '40px ' + (800 - growthProgress * 600) + 'px' }} />
-        )}
-        {growthProgress > 0.8 && (
-          <ellipse cx="45" cy={800 - growthProgress * 650} rx="20" ry="8" fill="hsl(120, 52%, 45%)"
-            style={{ opacity: Math.min((growthProgress - 0.8) * 3, 1), transform: 'rotate(20deg)', transformOrigin: '45px ' + (800 - growthProgress * 650) + 'px' }} />
-        )}
+        {/* Leaves - appear at fixed positions and stay there */}
+        {leaves.map((leaf, i) => {
+          if (growthProgress < leaf.threshold) return null;
+          const leafOpacity = Math.min((growthProgress - leaf.threshold) * 5, 1);
+          return (
+            <ellipse
+              key={`leaf-${i}`}
+              cx={leaf.cx}
+              cy={leaf.cy}
+              rx={leaf.rx}
+              ry={leaf.ry}
+              fill={leaf.color}
+              style={{
+                opacity: leafOpacity,
+                transform: `rotate(${leaf.rotation}deg)`,
+                transformOrigin: `${leaf.cx}px ${leaf.cy}px`
+              }}
+            />
+          );
+        })}
 
-        {/* Magic beans (golden) - bigger */}
-        {growthProgress > 0.25 && (
-          <ellipse cx="90" cy={800 - growthProgress * 280} rx="12" ry="7" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.25) * 4, 1) }} />
-        )}
-        {growthProgress > 0.3 && (
-          <ellipse cx="88" cy={800 - growthProgress * 320} rx="11" ry="7" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.3) * 4, 1) }} />
-        )}
-        {growthProgress > 0.5 && (
-          <ellipse cx="62" cy={800 - growthProgress * 440} rx="10" ry="6" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.5) * 4, 1) }} />
-        )}
-        {growthProgress > 0.55 && (
-          <ellipse cx="58" cy={800 - growthProgress * 480} rx="10" ry="6" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.55) * 4, 1) }} />
-        )}
-        {growthProgress > 0.7 && (
-          <ellipse cx="82" cy={800 - growthProgress * 560} rx="9" ry="5" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.7) * 4, 1) }} />
-        )}
-        {growthProgress > 0.75 && (
-          <ellipse cx="80" cy={800 - growthProgress * 600} rx="9" ry="5" fill="hsl(45, 90%, 55%)" filter="url(#glow)"
-            style={{ opacity: Math.min((growthProgress - 0.75) * 4, 1) }} />
-        )}
+        {/* Magic beans - appear at fixed positions */}
+        {beans.map((bean, i) => {
+          if (growthProgress < bean.threshold) return null;
+          const beanOpacity = Math.min((growthProgress - bean.threshold) * 6, 1);
+          return (
+            <ellipse
+              key={`bean-${i}`}
+              cx={bean.cx}
+              cy={bean.cy}
+              rx={bean.rx}
+              ry={bean.ry}
+              fill="hsl(45, 90%, 55%)"
+              filter="url(#glow)"
+              style={{ opacity: beanOpacity }}
+            />
+          );
+        })}
       </svg>
 
       {/* Progress indicator */}
@@ -311,11 +576,115 @@ const YearMarker = ({ year }) => (
     >
       {year}
     </span>
-    <p className="absolute bottom-1/4 left-1/2 -translate-x-1/2 text-lg text-slate-600 font-serif">
-      The year is {year}.
-    </p>
   </div>
 );
+
+// OOM (Orders of Magnitude) Visualization Component - Shows 1 → 100 → 1000+ growth
+const OOMVisualization = ({ stage = 0 }) => {
+  // stage 0: 1 cookie, stage 1: 100 cookies, stage 2: 1000+ cookies
+  const stages = [
+    { count: 1, label: '1', description: 'GPT-0.5 • 1 cookie' },
+    { count: 100, label: '100', description: '2 OoM • 100 cookies' },
+    { count: 1000, label: '1,000+', description: '3 OoM • 1,000 cookies' },
+  ];
+
+  // Generate cookie positions - fixed positions that accumulate
+  const getCookiePositions = (count, maxDisplay = 120) => {
+    const positions = [];
+    const displayCount = Math.min(count, maxDisplay);
+    const seed = 12345;
+
+    for (let i = 0; i < displayCount; i++) {
+      const hash = ((i * 1237 + seed) % 997) / 997;
+      const hash2 = ((i * 2341 + seed) % 991) / 991;
+      positions.push({
+        x: 8 + hash * 84,
+        y: 8 + hash2 * 84,
+        size: 6 + (hash * 3),
+      });
+    }
+    return positions;
+  };
+
+  const displayCount = stage === 0 ? 1 : stage === 1 ? 100 : 120;
+  const cookies = getCookiePositions(displayCount);
+  const currentStageData = stages[stage];
+
+  return (
+    <div className="relative bg-stone-100 border-2 border-emerald-800/30 rounded-xl p-6 shadow-lg max-w-md mx-auto overflow-hidden">
+      {/* Blueprint grid */}
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: 'linear-gradient(hsl(140, 30%, 45%) 1px, transparent 1px), linear-gradient(90deg, hsl(140, 30%, 45%) 1px, transparent 1px)',
+        backgroundSize: '24px 24px'
+      }} />
+      <div className="relative z-10">
+        <h3 className="font-mono text-emerald-800 text-sm uppercase tracking-wider mb-3">Orders of Magnitude</h3>
+
+        {/* Cookie display area */}
+        <div className="relative h-48 bg-amber-50/50 rounded-lg border border-amber-200 overflow-hidden">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            {cookies.map((cookie, i) => (
+              <g key={i}>
+                <ellipse
+                  cx={cookie.x}
+                  cy={cookie.y}
+                  rx={cookie.size / 2}
+                  ry={cookie.size / 2.5}
+                  fill="hsl(30, 60%, 55%)"
+                />
+                <ellipse
+                  cx={cookie.x - cookie.size * 0.1}
+                  cy={cookie.y - cookie.size * 0.1}
+                  rx={cookie.size / 4}
+                  ry={cookie.size / 5}
+                  fill="hsl(30, 50%, 65%)"
+                  opacity={0.6}
+                />
+                <circle cx={cookie.x - cookie.size * 0.12} cy={cookie.y + cookie.size * 0.05} r={cookie.size * 0.07} fill="hsl(25, 70%, 25%)" />
+                <circle cx={cookie.x + cookie.size * 0.08} cy={cookie.y - cookie.size * 0.06} r={cookie.size * 0.05} fill="hsl(25, 70%, 25%)" />
+              </g>
+            ))}
+          </svg>
+
+          {/* Overflow indicator */}
+          {stage === 2 && (
+            <div className="absolute inset-0 bg-gradient-to-t from-amber-100/80 to-transparent pointer-events-none flex items-end justify-center pb-2">
+              <span className="text-amber-700 text-xs font-mono">+ many more...</span>
+            </div>
+          )}
+        </div>
+
+        {/* Count display */}
+        <div className="mt-3 text-center">
+          <span className="font-mono text-3xl font-bold text-amber-700">
+            {stages[stage].label}
+          </span>
+          <span className="font-mono text-sm text-amber-600 ml-2">cookies</span>
+        </div>
+
+        {/* Stage indicator */}
+        <div className="flex justify-center gap-3 mt-3">
+          {stages.map((s, i) => (
+            <div
+              key={i}
+              className={`px-2 py-0.5 rounded-full text-xs font-mono transition-all ${
+                i <= stage
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-stone-200 text-stone-500'
+              }`}
+            >
+              {s.label}
+            </div>
+          ))}
+        </div>
+
+        <p className="font-mono text-emerald-700/60 text-xs mt-2 text-center">
+          {currentStageData.description}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 // Cost Chart Component - Blueprint/Patent Filing Style
 const CostChart = ({ visibleModels }) => {
@@ -905,6 +1274,9 @@ function BeansTalkPresentation() {
             Imagine you have 1 cookie. This is like GPT-0.5. You think this cookie is good, so you want 2 orders of magnitude more cookies.
             That's 1 + 2 zeros—<span className="font-mono">100 cookies</span>. You can get there in a day.
           </p>
+          <div className="mt-8">
+            <OOMVisualization stage={0} />
+          </div>
         </Section>
 
         <Section>
@@ -915,6 +1287,9 @@ function BeansTalkPresentation() {
             Someone else tries the cookies and says they want 3 MORE orders of magnitude. That's <span className="font-mono">1,000,000 cookies</span>.
             That's one thousand people baking cookies for a week. This is getting big fast. This is GPT-3.
           </p>
+          <div className="mt-8">
+            <OOMVisualization stage={1} />
+          </div>
         </Section>
 
         <Section>
@@ -927,6 +1302,9 @@ function BeansTalkPresentation() {
             That's 1 billion people making cookies for a week. An eighth of the world's population is making cookies—the beanstalk that dominates the horizon.
             As the world talks about the consequences of your cookie empire, the beanstalk rises.
           </p>
+          <div className="mt-8">
+            <OOMVisualization stage={2} />
+          </div>
         </Section>
 
         {/* ===== SECTION 27: Title Card — Historical Beanstalks ===== */}
