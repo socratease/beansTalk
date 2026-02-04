@@ -5,26 +5,44 @@ const { useState, useEffect, useRef } = React;
 const PastoralBackground = ({ scrollProgress }) => {
   const fogOpacity = Math.min(scrollProgress * 0.7, 0.6);
 
-  // Futuristic elements appear during early scroll (sections 1-2, roughly 0.05 to 0.15 scroll)
-  const futuristicProgress = scrollProgress > 0.03 && scrollProgress < 0.18
-    ? Math.min((scrollProgress - 0.03) / 0.08, 1)
-    : scrollProgress >= 0.18 ? Math.max(0, 1 - (scrollProgress - 0.18) / 0.05) : 0;
+  // Futuristic elements START appearing when "Every frontier lab" section enters (around 0.04)
+  // They persist and accumulate - pastoral becomes utopia!
+  const futuristicStart = 0.04; // When "Every frontier lab" paragraph enters
+  const futuristicProgress = scrollProgress > futuristicStart
+    ? Math.min((scrollProgress - futuristicStart) / 0.06, 1)
+    : 0;
+
+  // Additional elements appear at later scroll positions - all persist once visible
+  const phase2 = scrollProgress > 0.12 ? Math.min((scrollProgress - 0.12) / 0.05, 1) : 0;
+  const phase3 = scrollProgress > 0.20 ? Math.min((scrollProgress - 0.20) / 0.05, 1) : 0;
+  const phase4 = scrollProgress > 0.30 ? Math.min((scrollProgress - 0.30) / 0.05, 1) : 0;
+  const phase5 = scrollProgress > 0.40 ? Math.min((scrollProgress - 0.40) / 0.05, 1) : 0;
+  const phase6 = scrollProgress > 0.50 ? Math.min((scrollProgress - 0.50) / 0.05, 1) : 0;
+  const phase7 = scrollProgress > 0.60 ? Math.min((scrollProgress - 0.60) / 0.05, 1) : 0;
+  const phase8 = scrollProgress > 0.70 ? Math.min((scrollProgress - 0.70) / 0.05, 1) : 0;
+  const phase9 = scrollProgress > 0.80 ? Math.min((scrollProgress - 0.80) / 0.05, 1) : 0;
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {/* Sky gradient */}
+      {/* Sky gradient - shifts to more vibrant future sky */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(to bottom,
-            hsl(200, 60%, 85%) 0%,
-            hsl(200, 50%, 90%) 30%,
-            hsl(45, 40%, 88%) 70%,
-            hsl(35, 45%, 80%) 100%)`
+          background: scrollProgress > 0.5
+            ? `linear-gradient(to bottom,
+                hsl(${200 + scrollProgress * 20}, ${60 + scrollProgress * 20}%, ${85 - scrollProgress * 10}%) 0%,
+                hsl(${200 + scrollProgress * 15}, ${50 + scrollProgress * 15}%, 90%) 30%,
+                hsl(45, 40%, 88%) 70%,
+                hsl(35, 45%, 80%) 100%)`
+            : `linear-gradient(to bottom,
+                hsl(200, 60%, 85%) 0%,
+                hsl(200, 50%, 90%) 30%,
+                hsl(45, 40%, 88%) 70%,
+                hsl(35, 45%, 80%) 100%)`
         }}
       />
 
-      {/* Sun */}
+      {/* Sun - becomes more radiant */}
       <div
         className="absolute w-24 h-24 rounded-full"
         style={{
@@ -69,9 +87,9 @@ const PastoralBackground = ({ scrollProgress }) => {
         />
       </svg>
 
-      {/* ===== FUTURISTIC ELEMENTS (appear during early scroll) ===== */}
+      {/* ===== FUTURISTIC ELEMENTS - Progressive accumulation ===== */}
 
-      {/* Modern Windmill / Wind Turbine */}
+      {/* PHASE 1: Wind Turbine - appears when "Every frontier lab" enters */}
       {futuristicProgress > 0 && (
         <svg
           className="absolute bottom-32 transition-all duration-500"
@@ -84,37 +102,35 @@ const PastoralBackground = ({ scrollProgress }) => {
           }}
           viewBox="0 0 40 80"
         >
-          {/* Tower */}
-          <path d="M18 80 L22 80 L21 25 L19 25 Z" fill="hsl(0, 0%, 90%)" />
+          {/* Tower - extends to hub */}
+          <path d="M18 80 L22 80 L21 20 L19 20 Z" fill="hsl(0, 0%, 90%)" />
           {/* Hub */}
-          <circle cx="20" cy="22" r="4" fill="hsl(0, 0%, 85%)" />
-          {/* Blades - rotating */}
-          <g style={{ transformOrigin: '20px 22px', animation: 'spin 4s linear infinite' }}>
-            <ellipse cx="20" cy="8" rx="2" ry="14" fill="hsl(0, 0%, 95%)" />
-            <ellipse cx="32" cy="28" rx="2" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(120, 20, 22)" />
-            <ellipse cx="8" cy="28" rx="2" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(240, 20, 22)" />
+          <circle cx="20" cy="20" r="3" fill="hsl(0, 0%, 85%)" />
+          {/* Blades - all centered on hub at (20, 20) */}
+          <g style={{ transformOrigin: '20px 20px', animation: 'spin 4s linear infinite' }}>
+            <ellipse cx="20" cy="6" rx="2.5" ry="14" fill="hsl(0, 0%, 95%)" />
+            <ellipse cx="20" cy="6" rx="2.5" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(120, 20, 20)" />
+            <ellipse cx="20" cy="6" rx="2.5" ry="14" fill="hsl(0, 0%, 95%)" transform="rotate(240, 20, 20)" />
           </g>
         </svg>
       )}
 
       {/* Solar Panels on hillside */}
-      {futuristicProgress > 0.2 && (
+      {futuristicProgress > 0.3 && (
         <svg
           className="absolute bottom-36 transition-all duration-500"
           style={{
             left: '60%',
             width: '100px',
             height: '40px',
-            opacity: Math.min((futuristicProgress - 0.2) * 1.5, 1),
+            opacity: Math.min((futuristicProgress - 0.3) * 2, 1),
             transform: `translateY(${(1 - futuristicProgress) * 20}px)`
           }}
           viewBox="0 0 100 40"
         >
-          {/* Solar panel array */}
           <rect x="5" y="10" width="25" height="15" fill="hsl(220, 60%, 25%)" transform="skewY(-10)" rx="1" />
           <rect x="35" y="8" width="25" height="15" fill="hsl(220, 60%, 30%)" transform="skewY(-10)" rx="1" />
           <rect x="65" y="6" width="25" height="15" fill="hsl(220, 60%, 28%)" transform="skewY(-10)" rx="1" />
-          {/* Panel grid lines */}
           <line x1="17" y1="10" x2="17" y2="25" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
           <line x1="47" y1="8" x2="47" y2="23" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
           <line x1="77" y1="6" x2="77" y2="21" stroke="hsl(220, 40%, 40%)" strokeWidth="0.5" transform="skewY(-10)" />
@@ -122,145 +138,435 @@ const PastoralBackground = ({ scrollProgress }) => {
       )}
 
       {/* Smart Tractor */}
-      {futuristicProgress > 0.1 && (
+      {futuristicProgress > 0.5 && (
         <svg
           className="absolute bottom-20 transition-all duration-500"
           style={{
             left: '40%',
             width: '50px',
             height: '35px',
-            opacity: Math.min((futuristicProgress - 0.1) * 1.5, 1),
-            transform: `translateX(${futuristicProgress * 20}px)`
+            opacity: Math.min((futuristicProgress - 0.5) * 2, 1),
           }}
           viewBox="0 0 50 35"
         >
-          {/* Body */}
           <rect x="10" y="12" width="28" height="15" fill="hsl(200, 70%, 45%)" rx="3" />
-          {/* Cabin */}
           <rect x="25" y="5" width="12" height="12" fill="hsl(200, 50%, 80%)" rx="2" />
-          {/* Wheels */}
           <circle cx="15" cy="27" r="6" fill="hsl(0, 0%, 25%)" />
           <circle cx="35" cy="27" r="8" fill="hsl(0, 0%, 25%)" />
-          {/* Antenna */}
           <line x1="30" y1="5" x2="30" y2="0" stroke="hsl(0, 0%, 40%)" strokeWidth="1" />
           <circle cx="30" cy="0" r="1.5" fill="hsl(0, 80%, 50%)" />
-          {/* GPS dome */}
           <circle cx="20" cy="10" r="3" fill="hsl(0, 0%, 90%)" />
         </svg>
       )}
 
-      {/* Robot Farmer */}
-      {futuristicProgress > 0.3 && (
-        <svg
-          className="absolute bottom-24 transition-all duration-500"
-          style={{
-            left: '15%',
-            width: '30px',
-            height: '45px',
-            opacity: Math.min((futuristicProgress - 0.3) * 1.5, 1),
-            transform: `translateY(${(1 - futuristicProgress) * 15}px)`
-          }}
-          viewBox="0 0 30 45"
-        >
-          {/* Body */}
-          <rect x="8" y="18" width="14" height="18" fill="hsl(180, 30%, 70%)" rx="3" />
-          {/* Head */}
-          <rect x="9" y="8" width="12" height="10" fill="hsl(180, 30%, 75%)" rx="2" />
-          {/* Eyes */}
-          <circle cx="12" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
-          <circle cx="18" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
-          {/* Legs */}
-          <rect x="10" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
-          <rect x="16" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
-          {/* Arms */}
-          <rect x="3" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
-          <rect x="22" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
-          {/* Antenna */}
-          <line x1="15" y1="8" x2="15" y2="3" stroke="hsl(180, 30%, 60%)" strokeWidth="1" />
-          <circle cx="15" cy="2" r="1.5" fill="hsl(120, 80%, 50%)" />
-        </svg>
+      {/* PHASE 2: Geodesic Dome + Second Wind Turbine */}
+      {phase2 > 0 && (
+        <>
+          {/* Geodesic Dome */}
+          <svg
+            className="absolute bottom-28 transition-all duration-700"
+            style={{
+              left: '72%',
+              width: '70px',
+              height: '50px',
+              opacity: phase2,
+            }}
+            viewBox="0 0 70 50"
+          >
+            <ellipse cx="35" cy="45" rx="30" ry="8" fill="hsl(140, 30%, 35%)" opacity="0.5" />
+            <path d="M5 45 Q35 -5 65 45" fill="none" stroke="hsl(200, 60%, 70%)" strokeWidth="1.5" opacity="0.8" />
+            <path d="M12 45 Q35 5 58 45" fill="none" stroke="hsl(200, 60%, 70%)" strokeWidth="1" opacity="0.6" />
+            <path d="M20 45 Q35 15 50 45" fill="none" stroke="hsl(200, 60%, 70%)" strokeWidth="0.8" opacity="0.5" />
+            <line x1="35" y1="0" x2="35" y2="45" stroke="hsl(200, 60%, 70%)" strokeWidth="1" opacity="0.6" />
+            <line x1="5" y1="45" x2="65" y2="45" stroke="hsl(200, 60%, 70%)" strokeWidth="1" opacity="0.4" />
+            <ellipse cx="35" cy="25" rx="28" ry="20" fill="hsla(180, 100%, 90%, 0.15)" />
+          </svg>
+
+          {/* Second Wind Turbine (smaller, distant) */}
+          <svg
+            className="absolute bottom-40 transition-all duration-500"
+            style={{
+              right: '35%',
+              width: '50px',
+              height: '100px',
+              opacity: phase2 * 0.7,
+            }}
+            viewBox="0 0 40 80"
+          >
+            <path d="M18 80 L22 80 L21 25 L19 25 Z" fill="hsl(0, 0%, 88%)" />
+            <circle cx="20" cy="23" r="2.5" fill="hsl(0, 0%, 83%)" />
+            <g style={{ transformOrigin: '20px 23px', animation: 'spin 5s linear infinite' }}>
+              <ellipse cx="20" cy="12" rx="2" ry="11" fill="hsl(0, 0%, 93%)" />
+              <ellipse cx="20" cy="12" rx="2" ry="11" fill="hsl(0, 0%, 93%)" transform="rotate(120, 20, 23)" />
+              <ellipse cx="20" cy="12" rx="2" ry="11" fill="hsl(0, 0%, 93%)" transform="rotate(240, 20, 23)" />
+            </g>
+          </svg>
+        </>
       )}
 
-      {/* Small Rocket/Spaceship in sky */}
-      {futuristicProgress > 0.4 && (
-        <svg
-          className="absolute transition-all duration-700"
-          style={{
-            top: '15%',
-            right: '25%',
-            width: '25px',
-            height: '50px',
-            opacity: Math.min((futuristicProgress - 0.4) * 2, 0.8),
-            transform: `translateY(${(1 - futuristicProgress) * 40}px) rotate(-15deg)`
-          }}
-          viewBox="0 0 25 50"
-        >
-          {/* Rocket body */}
-          <ellipse cx="12.5" cy="25" rx="6" ry="18" fill="hsl(0, 0%, 95%)" />
-          {/* Nose cone */}
-          <ellipse cx="12.5" cy="8" rx="4" ry="8" fill="hsl(0, 70%, 50%)" />
-          {/* Window */}
-          <circle cx="12.5" cy="20" r="3" fill="hsl(200, 80%, 70%)" />
-          {/* Fins */}
-          <polygon points="6,40 12,35 12,45" fill="hsl(0, 70%, 50%)" />
-          <polygon points="19,40 13,35 13,45" fill="hsl(0, 70%, 50%)" />
-          {/* Exhaust flame */}
-          <ellipse cx="12.5" cy="46" rx="3" ry="4" fill="hsl(35, 100%, 60%)" opacity="0.8" />
-          <ellipse cx="12.5" cy="48" rx="2" ry="3" fill="hsl(45, 100%, 70%)" opacity="0.6" />
-        </svg>
+      {/* PHASE 3: Monorail Track + Robot Farmer */}
+      {phase3 > 0 && (
+        <>
+          {/* Monorail Track */}
+          <svg
+            className="absolute bottom-44 w-full transition-all duration-700"
+            style={{
+              height: '60px',
+              opacity: phase3,
+            }}
+            viewBox="0 0 1200 60"
+            preserveAspectRatio="none"
+          >
+            {/* Track supports */}
+            <rect x="200" y="20" width="4" height="40" fill="hsl(0, 0%, 70%)" />
+            <rect x="400" y="15" width="4" height="45" fill="hsl(0, 0%, 70%)" />
+            <rect x="600" y="18" width="4" height="42" fill="hsl(0, 0%, 70%)" />
+            <rect x="800" y="12" width="4" height="48" fill="hsl(0, 0%, 70%)" />
+            <rect x="1000" y="16" width="4" height="44" fill="hsl(0, 0%, 70%)" />
+            {/* Track beam */}
+            <path d="M0 20 Q300 8 600 18 Q900 10 1200 15" fill="none" stroke="hsl(0, 0%, 80%)" strokeWidth="6" />
+            <path d="M0 20 Q300 8 600 18 Q900 10 1200 15" fill="none" stroke="hsl(200, 70%, 60%)" strokeWidth="2" />
+          </svg>
+
+          {/* Robot Farmer */}
+          <svg
+            className="absolute bottom-24 transition-all duration-500"
+            style={{
+              left: '15%',
+              width: '30px',
+              height: '45px',
+              opacity: phase3,
+            }}
+            viewBox="0 0 30 45"
+          >
+            <rect x="8" y="18" width="14" height="18" fill="hsl(180, 30%, 70%)" rx="3" />
+            <rect x="9" y="8" width="12" height="10" fill="hsl(180, 30%, 75%)" rx="2" />
+            <circle cx="12" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
+            <circle cx="18" cy="12" r="2" fill="hsl(180, 100%, 50%)" />
+            <rect x="10" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
+            <rect x="16" y="36" width="4" height="8" fill="hsl(180, 20%, 60%)" rx="1" />
+            <rect x="3" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
+            <rect x="22" y="20" width="5" height="3" fill="hsl(180, 20%, 65%)" rx="1" />
+            <line x1="15" y1="8" x2="15" y2="3" stroke="hsl(180, 30%, 60%)" strokeWidth="1" />
+            <circle cx="15" cy="2" r="1.5" fill="hsl(120, 80%, 50%)" />
+          </svg>
+        </>
       )}
 
-      {/* Drone */}
-      {futuristicProgress > 0.5 && (
-        <svg
-          className="absolute transition-all duration-500"
-          style={{
-            top: '30%',
-            left: '70%',
-            width: '35px',
-            height: '20px',
-            opacity: Math.min((futuristicProgress - 0.5) * 2, 0.9),
-            transform: `translateY(${Math.sin(Date.now() / 500) * 3}px)`
-          }}
-          viewBox="0 0 35 20"
-        >
-          {/* Body */}
-          <ellipse cx="17.5" cy="12" rx="6" ry="4" fill="hsl(0, 0%, 30%)" />
-          {/* Arms */}
-          <line x1="5" y1="10" x2="12" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
-          <line x1="30" y1="10" x2="23" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
-          <line x1="5" y1="14" x2="12" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
-          <line x1="30" y1="14" x2="23" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1.5" />
-          {/* Rotors */}
-          <ellipse cx="5" cy="10" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
-          <ellipse cx="30" cy="10" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
-          <ellipse cx="5" cy="14" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
-          <ellipse cx="30" cy="14" rx="4" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
-          {/* Camera */}
-          <circle cx="17.5" cy="16" r="2" fill="hsl(0, 0%, 20%)" />
-        </svg>
+      {/* PHASE 4: Flying Car + Vertical Farm Tower */}
+      {phase4 > 0 && (
+        <>
+          {/* Flying Car */}
+          <svg
+            className="absolute transition-all duration-700"
+            style={{
+              top: '25%',
+              left: `${20 + phase4 * 15}%`,
+              width: '45px',
+              height: '25px',
+              opacity: phase4,
+            }}
+            viewBox="0 0 45 25"
+          >
+            <ellipse cx="22.5" cy="15" rx="18" ry="8" fill="hsl(220, 50%, 60%)" />
+            <ellipse cx="22.5" cy="12" rx="10" ry="5" fill="hsl(200, 80%, 85%)" opacity="0.7" />
+            <ellipse cx="10" cy="20" rx="6" ry="2" fill="hsl(180, 100%, 70%)" opacity="0.5" />
+            <ellipse cx="35" cy="20" rx="6" ry="2" fill="hsl(180, 100%, 70%)" opacity="0.5" />
+          </svg>
+
+          {/* Vertical Farm Tower */}
+          <svg
+            className="absolute bottom-20 transition-all duration-700"
+            style={{
+              right: '18%',
+              width: '40px',
+              height: '120px',
+              opacity: phase4,
+            }}
+            viewBox="0 0 40 120"
+          >
+            <rect x="8" y="10" width="24" height="110" fill="hsl(200, 30%, 85%)" rx="2" />
+            {/* Green growing levels */}
+            {[0,1,2,3,4,5,6,7].map(i => (
+              <React.Fragment key={i}>
+                <rect x="10" y={15 + i * 13} width="20" height="8" fill="hsl(120, 50%, 45%)" rx="1" />
+                <line x1="10" y1={19 + i * 13} x2="30" y2={19 + i * 13} stroke="hsl(120, 60%, 35%)" strokeWidth="0.5" />
+              </React.Fragment>
+            ))}
+            {/* Glass panels */}
+            <rect x="8" y="10" width="24" height="110" fill="none" stroke="hsl(200, 50%, 70%)" strokeWidth="1" rx="2" />
+          </svg>
+        </>
       )}
 
-      {/* Floating Holographic Display */}
-      {futuristicProgress > 0.6 && (
-        <div
-          className="absolute transition-all duration-500"
-          style={{
-            bottom: '35%',
-            left: '30%',
-            width: '60px',
-            height: '40px',
-            opacity: Math.min((futuristicProgress - 0.6) * 2, 0.7),
-            background: 'linear-gradient(135deg, hsla(180, 100%, 70%, 0.3) 0%, hsla(200, 100%, 60%, 0.2) 100%)',
-            border: '1px solid hsla(180, 100%, 80%, 0.5)',
-            borderRadius: '4px',
-            boxShadow: '0 0 15px hsla(180, 100%, 70%, 0.3)'
-          }}
-        >
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-3/4 h-1 bg-cyan-400/50 rounded" />
+      {/* PHASE 5: Drone Swarm + Space Elevator Base */}
+      {phase5 > 0 && (
+        <>
+          {/* Drone Swarm */}
+          {[0,1,2].map(i => (
+            <svg
+              key={`drone-${i}`}
+              className="absolute transition-all duration-500"
+              style={{
+                top: `${22 + i * 8}%`,
+                left: `${65 + i * 5}%`,
+                width: '30px',
+                height: '18px',
+                opacity: phase5 * 0.8,
+              }}
+              viewBox="0 0 35 20"
+            >
+              <ellipse cx="17.5" cy="12" rx="5" ry="3" fill="hsl(0, 0%, 30%)" />
+              <line x1="5" y1="10" x2="12" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1" />
+              <line x1="30" y1="10" x2="23" y2="12" stroke="hsl(0, 0%, 40%)" strokeWidth="1" />
+              <ellipse cx="5" cy="10" rx="3" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+              <ellipse cx="30" cy="10" rx="3" ry="1" fill="hsl(0, 0%, 60%)" opacity="0.5" />
+              <circle cx="17.5" cy="15" r="1.5" fill="hsl(0, 80%, 50%)" />
+            </svg>
+          ))}
+
+          {/* Space Elevator Base */}
+          <svg
+            className="absolute bottom-24 transition-all duration-700"
+            style={{
+              right: '8%',
+              width: '30px',
+              height: '200px',
+              opacity: phase5,
+            }}
+            viewBox="0 0 30 200"
+          >
+            {/* Base platform */}
+            <ellipse cx="15" cy="195" rx="14" ry="4" fill="hsl(0, 0%, 60%)" />
+            {/* Elevator cable */}
+            <line x1="15" y1="0" x2="15" y2="190" stroke="hsl(200, 60%, 70%)" strokeWidth="2" />
+            <line x1="15" y1="0" x2="15" y2="190" stroke="hsl(180, 100%, 80%)" strokeWidth="0.5" />
+            {/* Climbing pod */}
+            <rect x="10" y="120" width="10" height="15" fill="hsl(0, 0%, 80%)" rx="2" />
+            <rect x="11" y="122" width="8" height="6" fill="hsl(200, 80%, 70%)" rx="1" />
+          </svg>
+        </>
+      )}
+
+      {/* PHASE 6: Floating City Platform + More Solar */}
+      {phase6 > 0 && (
+        <>
+          {/* Floating City Platform */}
+          <svg
+            className="absolute transition-all duration-700"
+            style={{
+              top: '12%',
+              left: '25%',
+              width: '120px',
+              height: '80px',
+              opacity: phase6 * 0.85,
+            }}
+            viewBox="0 0 120 80"
+          >
+            {/* Anti-grav glow */}
+            <ellipse cx="60" cy="75" rx="45" ry="8" fill="hsl(180, 100%, 70%)" opacity="0.3" />
+            <ellipse cx="60" cy="75" rx="30" ry="5" fill="hsl(180, 100%, 80%)" opacity="0.4" />
+            {/* Platform base */}
+            <ellipse cx="60" cy="60" rx="50" ry="12" fill="hsl(200, 30%, 75%)" />
+            <ellipse cx="60" cy="58" rx="45" ry="10" fill="hsl(200, 40%, 85%)" />
+            {/* Buildings on platform */}
+            <rect x="25" y="30" width="15" height="28" fill="hsl(200, 50%, 70%)" rx="1" />
+            <rect x="45" y="20" width="12" height="38" fill="hsl(210, 50%, 75%)" rx="1" />
+            <rect x="62" y="35" width="18" height="23" fill="hsl(190, 45%, 72%)" rx="1" />
+            <rect x="85" y="40" width="10" height="18" fill="hsl(200, 55%, 68%)" rx="1" />
+            {/* Windows */}
+            <rect x="27" y="33" width="4" height="3" fill="hsl(50, 100%, 85%)" />
+            <rect x="47" y="25" width="3" height="3" fill="hsl(50, 100%, 85%)" />
+            <rect x="65" y="40" width="5" height="4" fill="hsl(50, 100%, 85%)" />
+          </svg>
+
+          {/* Additional Solar Array */}
+          <svg
+            className="absolute bottom-32 transition-all duration-500"
+            style={{
+              left: '25%',
+              width: '80px',
+              height: '35px',
+              opacity: phase6,
+            }}
+            viewBox="0 0 80 35"
+          >
+            <rect x="5" y="8" width="20" height="12" fill="hsl(220, 60%, 28%)" transform="skewY(-8)" rx="1" />
+            <rect x="30" y="6" width="20" height="12" fill="hsl(220, 60%, 32%)" transform="skewY(-8)" rx="1" />
+            <rect x="55" y="4" width="20" height="12" fill="hsl(220, 60%, 26%)" transform="skewY(-8)" rx="1" />
+          </svg>
+        </>
+      )}
+
+      {/* PHASE 7: Holographic Billboards + Energy Shield */}
+      {phase7 > 0 && (
+        <>
+          {/* Holographic Billboard */}
+          <div
+            className="absolute transition-all duration-500"
+            style={{
+              bottom: '42%',
+              left: '55%',
+              width: '70px',
+              height: '45px',
+              opacity: phase7 * 0.75,
+              background: 'linear-gradient(135deg, hsla(280, 100%, 70%, 0.25) 0%, hsla(180, 100%, 60%, 0.2) 100%)',
+              border: '1px solid hsla(200, 100%, 80%, 0.6)',
+              borderRadius: '4px',
+              boxShadow: '0 0 20px hsla(200, 100%, 70%, 0.4), inset 0 0 15px hsla(280, 100%, 80%, 0.2)'
+            }}
+          >
+            <div className="w-full h-full flex flex-col items-center justify-center gap-1 p-1">
+              <div className="w-4/5 h-1 bg-cyan-400/60 rounded" />
+              <div className="w-3/5 h-1 bg-purple-400/50 rounded" />
+              <div className="w-4/5 h-1 bg-cyan-400/40 rounded" />
+            </div>
           </div>
-        </div>
+
+          {/* Energy Shield Dome over cottage */}
+          <svg
+            className="absolute bottom-16 transition-all duration-700"
+            style={{
+              right: '22%',
+              width: '150px',
+              height: '100px',
+              opacity: phase7 * 0.4,
+            }}
+            viewBox="0 0 150 100"
+          >
+            <defs>
+              <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="hsl(180, 100%, 70%)" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="hsl(180, 100%, 80%)" stopOpacity="0.1" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="75" cy="90" rx="70" ry="10" fill="hsl(180, 100%, 70%)" opacity="0.2" />
+            <path d="M5 90 Q75 -10 145 90" fill="url(#shieldGrad)" stroke="hsl(180, 100%, 80%)" strokeWidth="1" />
+          </svg>
+        </>
+      )}
+
+      {/* PHASE 8: Maglev Train + More Flying Vehicles */}
+      {phase8 > 0 && (
+        <>
+          {/* Maglev Train on monorail */}
+          <svg
+            className="absolute bottom-48 transition-all duration-700"
+            style={{
+              left: `${10 + (phase8 * 40)}%`,
+              width: '80px',
+              height: '30px',
+              opacity: phase8,
+            }}
+            viewBox="0 0 80 30"
+          >
+            <ellipse cx="40" cy="22" rx="38" ry="8" fill="hsl(0, 0%, 95%)" />
+            <ellipse cx="40" cy="20" rx="35" ry="7" fill="hsl(200, 70%, 55%)" />
+            <ellipse cx="15" cy="18" rx="8" ry="4" fill="hsl(200, 80%, 85%)" opacity="0.8" />
+            <ellipse cx="40" cy="18" rx="8" ry="4" fill="hsl(200, 80%, 85%)" opacity="0.8" />
+            <ellipse cx="65" cy="18" rx="8" ry="4" fill="hsl(200, 80%, 85%)" opacity="0.8" />
+            {/* Maglev glow */}
+            <ellipse cx="40" cy="28" rx="30" ry="3" fill="hsl(180, 100%, 70%)" opacity="0.4" />
+          </svg>
+
+          {/* Second Flying Car */}
+          <svg
+            className="absolute transition-all duration-700"
+            style={{
+              top: '18%',
+              right: `${15 + phase8 * 10}%`,
+              width: '40px',
+              height: '22px',
+              opacity: phase8 * 0.9,
+            }}
+            viewBox="0 0 45 25"
+          >
+            <ellipse cx="22.5" cy="15" rx="16" ry="7" fill="hsl(350, 50%, 55%)" />
+            <ellipse cx="22.5" cy="12" rx="9" ry="4" fill="hsl(200, 80%, 85%)" opacity="0.7" />
+            <ellipse cx="10" cy="19" rx="5" ry="2" fill="hsl(180, 100%, 70%)" opacity="0.5" />
+            <ellipse cx="35" cy="19" rx="5" ry="2" fill="hsl(180, 100%, 70%)" opacity="0.5" />
+          </svg>
+        </>
+      )}
+
+      {/* PHASE 9: Full Utopia - Multiple Floating Platforms + Aurora */}
+      {phase9 > 0 && (
+        <>
+          {/* Aurora Effect in sky */}
+          <div
+            className="absolute inset-x-0 top-0 h-1/3 pointer-events-none transition-all duration-1000"
+            style={{
+              opacity: phase9 * 0.3,
+              background: `linear-gradient(180deg,
+                hsla(160, 100%, 70%, 0.1) 0%,
+                hsla(200, 100%, 60%, 0.15) 30%,
+                hsla(280, 100%, 70%, 0.1) 60%,
+                transparent 100%)`
+            }}
+          />
+
+          {/* Small Floating Platform 2 */}
+          <svg
+            className="absolute transition-all duration-700"
+            style={{
+              top: '8%',
+              right: '30%',
+              width: '60px',
+              height: '40px',
+              opacity: phase9 * 0.7,
+            }}
+            viewBox="0 0 60 40"
+          >
+            <ellipse cx="30" cy="38" rx="20" ry="4" fill="hsl(180, 100%, 70%)" opacity="0.3" />
+            <ellipse cx="30" cy="30" rx="25" ry="6" fill="hsl(200, 40%, 80%)" />
+            <rect x="20" y="15" width="8" height="15" fill="hsl(200, 50%, 72%)" rx="1" />
+            <rect x="32" y="20" width="10" height="10" fill="hsl(210, 45%, 75%)" rx="1" />
+          </svg>
+
+          {/* Third Wind Turbine (very distant) */}
+          <svg
+            className="absolute bottom-36 transition-all duration-500"
+            style={{
+              left: '8%',
+              width: '40px',
+              height: '80px',
+              opacity: phase9 * 0.6,
+            }}
+            viewBox="0 0 40 80"
+          >
+            <path d="M18 80 L22 80 L21 30 L19 30 Z" fill="hsl(0, 0%, 85%)" />
+            <circle cx="20" cy="28" r="2" fill="hsl(0, 0%, 80%)" />
+            <g style={{ transformOrigin: '20px 28px', animation: 'spin 6s linear infinite' }}>
+              <ellipse cx="20" cy="18" rx="1.5" ry="10" fill="hsl(0, 0%, 90%)" />
+              <ellipse cx="20" cy="18" rx="1.5" ry="10" fill="hsl(0, 0%, 90%)" transform="rotate(120, 20, 28)" />
+              <ellipse cx="20" cy="18" rx="1.5" ry="10" fill="hsl(0, 0%, 90%)" transform="rotate(240, 20, 28)" />
+            </g>
+          </svg>
+
+          {/* Orbital Ring segment visible */}
+          <svg
+            className="absolute top-0 w-full transition-all duration-1000"
+            style={{
+              height: '150px',
+              opacity: phase9 * 0.4,
+            }}
+            viewBox="0 0 1200 150"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M-200 200 Q400 -50 800 30 Q1200 110 1400 -20"
+              fill="none"
+              stroke="hsl(200, 70%, 75%)"
+              strokeWidth="3"
+            />
+            <path
+              d="M-200 200 Q400 -50 800 30 Q1200 110 1400 -20"
+              fill="none"
+              stroke="hsl(180, 100%, 85%)"
+              strokeWidth="1"
+            />
+          </svg>
+        </>
       )}
 
       {/* ===== END FUTURISTIC ELEMENTS ===== */}
@@ -336,42 +642,46 @@ const BeanstalkProgress = ({ scrollProgress, visible }) => {
 
   // Define fixed stalk segments that appear at specific thresholds
   // Each segment has a fixed position and appears when growthProgress exceeds its threshold
+  // Main thick vine - goes all the way to top of screen
   const stalkSegments = [
-    { threshold: 0, y1: 800, y2: 750, x1: 75, x2: 80, width: 45 },
-    { threshold: 0.08, y1: 750, y2: 690, x1: 80, x2: 70, width: 44 },
-    { threshold: 0.16, y1: 690, y2: 620, x1: 70, x2: 85, width: 43 },
-    { threshold: 0.24, y1: 620, y2: 550, x1: 85, x2: 72, width: 42 },
-    { threshold: 0.32, y1: 550, y2: 480, x1: 72, x2: 80, width: 40 },
-    { threshold: 0.40, y1: 480, y2: 410, x1: 80, x2: 68, width: 38 },
-    { threshold: 0.48, y1: 410, y2: 340, x1: 68, x2: 78, width: 36 },
-    { threshold: 0.56, y1: 340, y2: 270, x1: 78, x2: 72, width: 34 },
-    { threshold: 0.64, y1: 270, y2: 200, x1: 72, x2: 76, width: 32 },
-    { threshold: 0.72, y1: 200, y2: 130, x1: 76, x2: 74, width: 30 },
-    { threshold: 0.85, y1: 130, y2: 60, x1: 74, x2: 75, width: 28 },
+    { threshold: 0, y1: 800, y2: 740, x1: 75, x2: 82, width: 48 },
+    { threshold: 0.07, y1: 740, y2: 670, x1: 82, x2: 68, width: 46 },
+    { threshold: 0.14, y1: 670, y2: 590, x1: 68, x2: 85, width: 44 },
+    { threshold: 0.21, y1: 590, y2: 510, x1: 85, x2: 70, width: 42 },
+    { threshold: 0.28, y1: 510, y2: 430, x1: 70, x2: 80, width: 40 },
+    { threshold: 0.35, y1: 430, y2: 350, x1: 80, x2: 65, width: 38 },
+    { threshold: 0.42, y1: 350, y2: 270, x1: 65, x2: 78, width: 36 },
+    { threshold: 0.49, y1: 270, y2: 190, x1: 78, x2: 70, width: 34 },
+    { threshold: 0.56, y1: 190, y2: 120, x1: 70, x2: 75, width: 32 },
+    { threshold: 0.63, y1: 120, y2: 50, x1: 75, x2: 72, width: 30 },
+    { threshold: 0.70, y1: 50, y2: -20, x1: 72, x2: 75, width: 28 },
   ];
 
-  // Secondary vine segments (thinner, offset)
+  // Secondary vine segments - thick, goes to top on right side
   const vineSegments = [
-    { threshold: 0.05, y1: 790, y2: 730, x1: 90, x2: 100, width: 20 },
-    { threshold: 0.15, y1: 730, y2: 660, x1: 100, x2: 88, width: 19 },
-    { threshold: 0.25, y1: 660, y2: 590, x1: 88, x2: 98, width: 18 },
-    { threshold: 0.35, y1: 590, y2: 520, x1: 98, x2: 85, width: 17 },
-    { threshold: 0.45, y1: 520, y2: 450, x1: 85, x2: 95, width: 16 },
-    { threshold: 0.55, y1: 450, y2: 380, x1: 95, x2: 82, width: 15 },
-    { threshold: 0.65, y1: 380, y2: 310, x1: 82, x2: 90, width: 14 },
-    { threshold: 0.75, y1: 310, y2: 240, x1: 90, x2: 85, width: 13 },
-    { threshold: 0.88, y1: 240, y2: 170, x1: 85, x2: 88, width: 12 },
+    { threshold: 0.04, y1: 790, y2: 720, x1: 95, x2: 108, width: 32 },
+    { threshold: 0.12, y1: 720, y2: 640, x1: 108, x2: 92, width: 30 },
+    { threshold: 0.20, y1: 640, y2: 560, x1: 92, x2: 105, width: 28 },
+    { threshold: 0.28, y1: 560, y2: 480, x1: 105, x2: 88, width: 26 },
+    { threshold: 0.36, y1: 480, y2: 400, x1: 88, x2: 100, width: 24 },
+    { threshold: 0.44, y1: 400, y2: 320, x1: 100, x2: 85, width: 22 },
+    { threshold: 0.52, y1: 320, y2: 240, x1: 85, x2: 95, width: 20 },
+    { threshold: 0.60, y1: 240, y2: 160, x1: 95, x2: 88, width: 18 },
+    { threshold: 0.68, y1: 160, y2: 80, x1: 88, x2: 92, width: 16 },
+    { threshold: 0.76, y1: 80, y2: 0, x1: 92, x2: 90, width: 14 },
   ];
 
-  // Tertiary vine (thinnest, other side)
-  const tertiarySegments = [
-    { threshold: 0.10, y1: 770, y2: 700, x1: 60, x2: 50, width: 12 },
-    { threshold: 0.22, y1: 700, y2: 630, x1: 50, x2: 62, width: 11 },
-    { threshold: 0.34, y1: 630, y2: 560, x1: 62, x2: 48, width: 10 },
-    { threshold: 0.46, y1: 560, y2: 490, x1: 48, x2: 58, width: 10 },
-    { threshold: 0.58, y1: 490, y2: 420, x1: 58, x2: 52, width: 9 },
-    { threshold: 0.70, y1: 420, y2: 350, x1: 52, x2: 56, width: 9 },
-    { threshold: 0.82, y1: 350, y2: 280, x1: 56, x2: 54, width: 8 },
+  // Third thick vine on the left side - replaces the old skinny tertiary
+  const leftVineSegments = [
+    { threshold: 0.08, y1: 780, y2: 700, x1: 55, x2: 42, width: 28 },
+    { threshold: 0.18, y1: 700, y2: 610, x1: 42, x2: 58, width: 26 },
+    { threshold: 0.28, y1: 610, y2: 520, x1: 58, x2: 40, width: 24 },
+    { threshold: 0.38, y1: 520, y2: 430, x1: 40, x2: 55, width: 22 },
+    { threshold: 0.48, y1: 430, y2: 340, x1: 55, x2: 38, width: 20 },
+    { threshold: 0.58, y1: 340, y2: 250, x1: 38, x2: 50, width: 18 },
+    { threshold: 0.68, y1: 250, y2: 160, x1: 50, x2: 42, width: 16 },
+    { threshold: 0.78, y1: 160, y2: 70, x1: 42, x2: 48, width: 14 },
+    { threshold: 0.88, y1: 70, y2: -10, x1: 48, x2: 45, width: 12 },
   ];
 
   // Fixed leaf positions (appear and stay at their fixed y positions)
@@ -413,6 +723,11 @@ const BeanstalkProgress = ({ scrollProgress, visible }) => {
             <stop offset="0%" stopColor="hsl(120, 45%, 28%)" />
             <stop offset="50%" stopColor="hsl(120, 50%, 35%)" />
             <stop offset="100%" stopColor="hsl(120, 45%, 30%)" />
+          </linearGradient>
+          <linearGradient id="stalkGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(115, 48%, 26%)" />
+            <stop offset="50%" stopColor="hsl(118, 52%, 33%)" />
+            <stop offset="100%" stopColor="hsl(115, 48%, 28%)" />
           </linearGradient>
           <filter id="glow">
             <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
@@ -464,21 +779,22 @@ const BeanstalkProgress = ({ scrollProgress, visible }) => {
           );
         })}
 
-        {/* Tertiary vine segments */}
-        {tertiarySegments.map((seg, i) => {
+        {/* Left vine segments - thick, goes to top on left side */}
+        {leftVineSegments.map((seg, i) => {
           if (growthProgress < seg.threshold) return null;
-          const segmentProgress = Math.min((growthProgress - seg.threshold) / 0.12, 1);
+          const segmentProgress = Math.min((growthProgress - seg.threshold) / 0.10, 1);
           return (
             <line
-              key={`tertiary-${i}`}
+              key={`left-vine-${i}`}
               x1={seg.x1}
               y1={seg.y1}
               x2={seg.x1 + (seg.x2 - seg.x1) * segmentProgress}
               y2={seg.y1 + (seg.y2 - seg.y1) * segmentProgress}
-              stroke="hsl(120, 40%, 28%)"
+              stroke="url(#stalkGrad3)"
               strokeWidth={seg.width}
               strokeLinecap="round"
-              opacity={0.7}
+              filter="url(#stalkShadow)"
+              opacity={0.9}
             />
           );
         })}
