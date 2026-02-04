@@ -1368,6 +1368,15 @@ function BeansTalkPresentation() {
         {/* ===== SECTION 0: Opening - Pastoral Prologue ===== */}
         <section className="min-h-screen" />
 
+        {/* Jack's Story */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed mb-8">
+            Once upon a time, there lived a poor woman, her poor cow, and her poor son Jack.
+            Jack was out in town, and met a man who claimed he had <span className="text-emerald-600 font-semibold">magic beans</span>.
+            Jack, a naïve boy, traded the poor cow for the magic beans.
+          </p>
+        </Section>
+
         {/* ===== SECTION 1: The Magic Bean Pitch (Frontier AI Labs) ===== */}
         <Section>
           <p className="text-lg text-slate-700 leading-relaxed">
@@ -1394,6 +1403,11 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 2: Quote Card #1 ===== */}
+        <Section align="center">
+          <QuoteCard text="The allure of the legume" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 3: Year Marker 2018 ===== */}
         <YearMarker year="2018" />
 
@@ -1405,6 +1419,19 @@ function BeansTalkPresentation() {
             in a gruesome facsimile of thought, like a child improvising a story.
             Cost: <span className="font-mono text-emerald-600">$40,000</span>.
           </p>
+        </Section>
+
+        {/* ===== SECTION 5: Jack's Mother (Fury → Weeping) ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Upon hearing that Jack traded away their cow for these magic beans,
+            his mother is furious. She sinks into a corner and weeps.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 6: Quote Card #2 ===== */}
+        <Section align="center">
+          <QuoteCard text="A cow ill-spent; legume lament" variant="storybook" />
         </Section>
 
         {/* ===== SECTION 7: Year Marker 2019 ===== */}
@@ -1419,6 +1446,19 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 9: "No Such Thing as Magic Beans" ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Jack's mother screams at Jack—he's a fool. <span className="italic">"There's no such thing as magic beans."</span> She rips the beans from his hand
+            and throws them out the window.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 10: Quote Card #3 ===== */}
+        <Section align="center">
+          <QuoteCard text="Of magic beans, such tragic scenes" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 11: Year Marker 2020 ===== */}
         <YearMarker year="2020" />
 
@@ -1429,6 +1469,20 @@ function BeansTalkPresentation() {
             GPT-3 is fine-tuned into GPT-3.5 Turbo and released as ChatGPT. It can talk to you like a human—including
             the fact that most of what it says being totally made-up—and is bad at counting.
             It reaches <span className="font-mono text-emerald-600">100 million users</span> within 2 months.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 13: The Beanstalk Appears ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Overnight, outside the window, an enormous, impossible beanstalk shoots into the sky.
+          </p>
+        </Section>
+
+        <Section align="center" id="beanstalk-emerge">
+          <QuoteCard text="Illustrious beans, pants pockets; industrious green plant rockets" variant="storybook" />
+          <p className="text-slate-500 mt-8 text-sm">
+            ← The beanstalk has emerged
           </p>
         </Section>
 
@@ -1445,6 +1499,18 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 16: Into the Clouds + Quote Card #5 ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Up, up, up Jack climbs. The air thins and the fog thickens as he pushes into the clouds.
+            Through the mist, shapes start to take form.
+          </p>
+        </Section>
+
+        <Section align="center">
+          <QuoteCard text="Upon phloem towers, garbanzo aflower" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 17: Year Marker 2024 ===== */}
         <YearMarker year="2024" />
 
@@ -1459,8 +1525,26 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 19: Giant's Castle + Quote Card #6 ===== */}
+        <Section>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Jack pokes his head up from a cloud, and sees an enormous, luxurious castle.
+            Back home, mother hasn't left the house since.
+          </p>
+          <p className="text-lg text-slate-700 leading-relaxed mt-4 italic">
+            "No such thing as magic beans," she mutters.
+          </p>
+        </Section>
+
+        <Section align="center">
+          <QuoteCard text="Entombed and idle; legume denial" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 20: Year Marker 2026 ===== */}
         <YearMarker year="2026" />
+
+        {/* ===== SECTION 21: End of Act I ===== */}
+        <CurtainClose actNumber={1} />
 
         {/* ===== SECTION 22: "I'm Not a Magic Bean Salesman" ===== */}
         <Section>
@@ -1623,6 +1707,9 @@ function BeansTalkPresentation() {
             and we're onto exploring the Giant's castle, with all the risk and reward that poses.
           </p>
         </Section>
+
+        {/* ===== SECTION 34: End of Act II ===== */}
+        <CurtainClose actNumber={2} />
 
         {/* ===== SECTION 35: Title Card — On the Beanstalk and Beyond ===== */}
         <TitleCard title="On the Beanstalk and Beyond" />
