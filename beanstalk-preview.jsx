@@ -1394,6 +1394,11 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 2: Quote Card #1 ===== */}
+        <Section align="center">
+          <QuoteCard text="The allure of the legume" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 3: Year Marker 2018 ===== */}
         <YearMarker year="2018" />
 
@@ -1405,6 +1410,11 @@ function BeansTalkPresentation() {
             in a gruesome facsimile of thought, like a child improvising a story.
             Cost: <span className="font-mono text-emerald-600">$40,000</span>.
           </p>
+        </Section>
+
+        {/* ===== SECTION 6: Quote Card #2 ===== */}
+        <Section align="center">
+          <QuoteCard text="A cow ill-spent; legume lament" variant="storybook" />
         </Section>
 
         {/* ===== SECTION 7: Year Marker 2019 ===== */}
@@ -1419,6 +1429,11 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 10: Quote Card #3 ===== */}
+        <Section align="center">
+          <QuoteCard text="Of magic beans, such tragic scenes" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 11: Year Marker 2020 ===== */}
         <YearMarker year="2020" />
 
@@ -1429,6 +1444,14 @@ function BeansTalkPresentation() {
             GPT-3 is fine-tuned into GPT-3.5 Turbo and released as ChatGPT. It can talk to you like a human—including
             the fact that most of what it says being totally made-up—and is bad at counting.
             It reaches <span className="font-mono text-emerald-600">100 million users</span> within 2 months.
+          </p>
+        </Section>
+
+        {/* ===== SECTION 13: Quote Card #4 - Beanstalk Emerges ===== */}
+        <Section align="center" id="beanstalk-emerge">
+          <QuoteCard text="Illustrious beans, pants pockets; industrious green plant rockets" variant="storybook" />
+          <p className="text-slate-500 mt-8 text-sm">
+            ← The beanstalk has emerged
           </p>
         </Section>
 
@@ -1445,6 +1468,11 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 16: Quote Card #5 ===== */}
+        <Section align="center">
+          <QuoteCard text="Upon phloem towers, garbanzo aflower" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 17: Year Marker 2024 ===== */}
         <YearMarker year="2024" />
 
@@ -1459,8 +1487,16 @@ function BeansTalkPresentation() {
           </p>
         </Section>
 
+        {/* ===== SECTION 19: Quote Card #6 ===== */}
+        <Section align="center">
+          <QuoteCard text="Entombed and idle; legume denial" variant="storybook" />
+        </Section>
+
         {/* ===== SECTION 20: Year Marker 2026 ===== */}
         <YearMarker year="2026" />
+
+        {/* ===== SECTION 21: End of Act I ===== */}
+        <CurtainClose actNumber={1} />
 
         {/* ===== SECTION 22: "I'm Not a Magic Bean Salesman" ===== */}
         <Section>
@@ -1623,6 +1659,9 @@ function BeansTalkPresentation() {
             and we're onto exploring the Giant's castle, with all the risk and reward that poses.
           </p>
         </Section>
+
+        {/* ===== SECTION 34: End of Act II ===== */}
+        <CurtainClose actNumber={2} />
 
         {/* ===== SECTION 35: Title Card — On the Beanstalk and Beyond ===== */}
         <TitleCard title="On the Beanstalk and Beyond" />
